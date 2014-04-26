@@ -26,7 +26,7 @@ for nbr in range(len(arq)):
 
 clock = pygame.time.Clock()        #clock para milisec.
 mainloop = True
-FPS = 60                   #FPS 
+FPS = 600                   #FPS dejemos la caga con los fps :D
 playtime = 0
 cycletime = 0
 interval = .10 # cuanto tiempo esta cada imagen app .-.
