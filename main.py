@@ -20,9 +20,9 @@ for nbr in range(len(arq)):
     arq[nbr] = arq[nbr].convert_alpha()
     print "alpha en =", nbr
 #bliteo de todos los cuadros
-for nbr in range(len(arq)):
-    ven.blit(arq[nbr], (nbr*48, 0))  #blit de el arq[]
-    print "blit de =", nbr
+#for nbr in range(len(arq)):
+#    ven.blit(arq[nbr], (nbr*48, 0))  #blit de el arq[]
+#    print "blit de =", nbr
 
 clock = pygame.time.Clock()        #clock para milisec.
 mainloop = True
