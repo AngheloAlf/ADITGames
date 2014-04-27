@@ -101,3 +101,4 @@ while mainloop:
         posy +=3;ven.blit(mypicture, (posx,posy))
 
     pygame.display.flip()
+#dia de visita de flaco y diego
