@@ -86,16 +86,16 @@ while mainloop:
             if event.key == pygame.K_ESCAPE:
                 mainloop = False; sys.exit() # ESC salir
             #if presionar tecla
-            if event.key == pygame.K_RIGHT: der=True
-            if event.key == pygame.K_LEFT: izq = True
-            if event.key == pygame.K_UP: arr= True
-            if event.key == pygame.K_DOWN: aba= True
+            if event.key == pygame.K_d: der=True
+            if event.key == pygame.K_a: izq = True
+            if event.key == pygame.K_w: arr= True
+            if event.key == pygame.K_s: aba= True
         elif event.type == pygame.KEYUP:
             #if soltar tecla
-            if event.key == pygame.K_RIGHT: der=False
-            if event.key == pygame.K_LEFT: izq = False
-            if event.key == pygame.K_UP: arr= False
-            if event.key == pygame.K_DOWN: aba= False
+            if event.key == pygame.K_d: der=False
+            if event.key == pygame.K_a: izq = False
+            if event.key == pygame.K_w: arr= False
+            if event.key == pygame.K_s: aba= False
     if der and posx<(dimx-48):
         ven.blit(background.subsurface((0,0,48,76)),(posx,posy))#limpia y redibuja
         posx +=3;ven.blit(mypicture, (posx,posy))

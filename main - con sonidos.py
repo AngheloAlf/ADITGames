@@ -3,7 +3,7 @@ from pygame.locals import *
 pygame.init() #inicia pygame
 #inicia la ventana y su nombre
 dimx=500;dimy=500 #dimensiones de la ventana
-spritesheet = pygame.image.load(os.path.join("Arq44x76.png"))
+spritesheet = pygame.image.load(os.path.join("media","Arq44x76.png"))
 ven=pygame.display.set_mode((dimx,dimy),0,32)
 spritesheet.convert()
 pygame.display.set_caption("Nombre del juego")
@@ -13,10 +13,13 @@ background.fill((255,255,255)) # relleno de fondo a cambiar por imagen
 background = background.convert()  
 ven.blit(background,(0,0))
 
+main_dir = os.path.split(os.path.abspath(__file__))[0]
+data_dir = os.path.join(main_dir, 'media')
 
 pygame.mixer.init(frequency=22050, size=-16, channels=8, buffer=4096)
-sound=pygame.mixer.Sound("calm1.ogg")
-paso=pygame.mixer.Sound("gravel1.ogg")
+sound=pygame.mixer.Sound(os.path.join(data_dir, "overworld1.ogg"))
+paso=pygame.mixer.Sound(os.path.join(data_dir, "wood1.ogg"))
+paso.set_volume(0.4)
 pygame.mixer.Sound.play(sound)
 
 
@@ -96,17 +99,17 @@ while mainloop:
             if event.key == pygame.K_ESCAPE:
                 mainloop = False; sys.exit() # ESC salir
             #if presionar tecla
-            if event.key == pygame.K_RIGHT: der=True
-            if event.key == pygame.K_LEFT: izq = True
-            if event.key == pygame.K_UP: arr= True
-            if event.key == pygame.K_DOWN: aba= True
+            if event.key == pygame.K_d: der=True
+            if event.key == pygame.K_a: izq = True
+            if event.key == pygame.K_w: arr= True
+            if event.key == pygame.K_s: aba= True
 
         elif event.type == pygame.KEYUP:
             #if soltar tecla
-            if event.key == pygame.K_RIGHT: der=False
-            if event.key == pygame.K_LEFT: izq = False
-            if event.key == pygame.K_UP: arr= False
-            if event.key == pygame.K_DOWN: aba= False
+            if event.key == pygame.K_d: der=False
+            if event.key == pygame.K_a: izq = False
+            if event.key == pygame.K_w: arr= False
+            if event.key == pygame.K_s: aba= False
     if der and posx<(dimx-48):
         ven.blit(background.subsurface((0,0,48,76)),(posx,posy))#limpia y redibuja
         posx +=3;ven.blit(mypicture, (posx,posy))
