@@ -13,8 +13,8 @@ background.fill((255,255,255)) # relleno de fondo a cambiar por imagen
 background = background.convert()  
 ven.blit(background,(0,0))
 arq=[]
-for nbr in range(1,11,1): # recorrer 10 elementos para arq
-   arq.append(spritesheet.subsurface((48*(nbr-1),0,48,76)))
+for alf in range(1,11,1): # recorrer 10 elementos para arq
+   arq.append(spritesheet.subsurface((48*(alf-1),0,48,76)))
 for nbr in range(len(arq)):
     arq[nbr].set_colorkey((255,255,255)) # blanco = alpha
     arq[nbr] = arq[nbr].convert_alpha()
@@ -34,7 +34,6 @@ picnr = 0
 posx=300;posy=300 #posiciones de img
 der= False;aba=False;izq=False;arr= False # variables de movimiento en falso
 standf=True;standb=False #detenido hacia adelante o atras
-fase=0 #fase de movimiento
 while mainloop:
     milliseconds = clock.tick(FPS)  # milisec despues del ultimo frame
     seconds = milliseconds / 1000.0 # seconds q pasaron del utimo frame
