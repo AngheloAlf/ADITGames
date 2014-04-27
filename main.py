@@ -26,13 +26,14 @@ for nbr in range(len(arq)):
 
 clock = pygame.time.Clock()        #clock para milisec.
 mainloop = True
-FPS = 600                   #FPS dejemos la caga con los fps :D
+FPS = 65                   #FPS dejemos la caga con los fps :D okno C:
 playtime = 0
 cycletime = 0
 interval = .10 # cuanto tiempo esta cada imagen app .-.
 picnr = 0
 posx=300;posy=300 #posiciones de img
-der= False;aba=False;izq=False;arr= False ; stand=True# variables de movimiento en falso
+der= False;aba=False;izq=False;arr= False # variables de movimiento en falso
+standf=True;standb=False #detenido hacia adelante o atras
 fase=0 #fase de movimiento
 while mainloop:
     milliseconds = clock.tick(FPS)  # milisec despues del ultimo frame
@@ -42,16 +43,20 @@ while mainloop:
     mypicture = arq[picnr]
     #condicionales de stand y direccion
     if (der and izq and arr and aba) == False:
-            stand=True
+        standf=True
     if (der or izq or arr or aba) == True:
-            stand=False
+        standf=False
     if cycletime > interval:
-        if stand:
+        if standf:
             picnr=0
-            ven.blit(background.subsurface((300,300,48,76)),(posx,posy)) ##
+            ven.blit(background.subsurface((300,300,48,76)),(posx,posy)) #limpia imagen anterior
             ven.blit(mypicture, (posx,posy))
+        if standb:
+            picnr=3
+            ven.blit(background.subsurface((300,300,48,76)),(posx,posy)) 
+            ven.blit(mypicture, (posx,posy))                
         if (der or izq or aba)and (not arr):
-            ven.blit(background.subsurface((300,300,48,76)),(posx,posy)) ##
+            ven.blit(background.subsurface((300,300,48,76)),(posx,posy)) 
             ven.blit(mypicture, (posx,posy))
             picnr += 1
             if picnr >= 3:
@@ -59,13 +64,11 @@ while mainloop:
         if arr:
             if picnr!=5:
                 picnr=4
-            ven.blit(background.subsurface((300,300,48,76)),(posx,posy)) ##
+            ven.blit(background.subsurface((300,300,48,76)),(posx,posy)) 
             ven.blit(mypicture, (posx,posy))
             picnr += 1
             if picnr >= 6:
                 picnr = 4
-        #if picnr > 9:
-        #    picnr = 0
         cycletime = 0
 
     for event in pygame.event.get():
@@ -86,7 +89,7 @@ while mainloop:
             if event.key == pygame.K_UP: arr= False
             if event.key == pygame.K_DOWN: aba= False
     if der and posx<(dimx-48):
-        ven.blit(background.subsurface((0,0,48,76)),(posx,posy))
+        ven.blit(background.subsurface((0,0,48,76)),(posx,posy))#limpia y redibuja
         posx +=3;ven.blit(mypicture, (posx,posy))
     if izq and posx > 0:
         ven.blit(background.subsurface((0,0,48,76)),(posx,posy))
