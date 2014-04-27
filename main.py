@@ -60,6 +60,15 @@ while mainloop:
             picnr += 1
             if picnr >= 3:
                 picnr = 1
+        # if (arr or izq)and (not der or aba):
+        #     if picnr!=5:
+        #         picnr = 4 
+        #     ven.blit(background.subsurface((300,300,48,76)),(posx,posy)) 
+        #     ven.blit(mypicture, (posx,posy))
+        #     picnr += 1
+        #     if picnr >= 6:
+        #         picnr = 4
+            
         if arr:
             if picnr!=5:
                 picnr=4
