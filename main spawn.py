@@ -2,11 +2,12 @@ import pygame, sys, os, random
 from pygame.locals import *
 pygame.init() #inicia pygame
 #inicia la ventana y su nombre
-dimx=500;dimy=500 #dimensiones de la ventana
+dimx=1280;dimy=720 #dimensiones de la ventana
 spritesheet = pygame.image.load(os.path.join("Arq44x76.png"))
 warning=pygame.image.load(os.path.join("warn.png"))
-ven=pygame.display.set_mode((dimx,dimy),0,32)
+ven=pygame.display.set_mode((dimx,dimy),pygame.FULLSCREEN)
 spritesheet.convert();warning.convert()
+pygame.mouse.set_cursor(pygame.cursors.tri_right)
 pygame.display.set_caption("Nombre del juego")
 background = pygame.Surface((ven.get_size()))
 backgroundrect = background.get_rect()
@@ -90,8 +91,7 @@ while mainloop:
             if event.key == pygame.K_s: aba= False
         elif event.type == pygame.MOUSEBUTTONDOWN:
             if pygame.mouse.get_pressed()[0]==True:
-                #warns.append(warning)
-                ven.blit(warns[],(random.randint(0,500),random.randint(0,500)))
+                ven.blit(warning,(random.randint(0,dimx),random.randint(0,dimy)))
     if der and posx<(dimx-48):
         ven.blit(background.subsurface((0,0,48,76)),(posx,posy))#limpia y redibuja
         posx +=3;ven.blit(mypicture, (posx,posy))
