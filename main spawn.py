@@ -7,7 +7,11 @@ spritesheet = pygame.image.load(os.path.join("Arq44x76.png"))
 warning=pygame.image.load(os.path.join("warn.png"))
 ven=pygame.display.set_mode((dimx,dimy),pygame.FULLSCREEN)
 spritesheet.convert();warning.convert()
-pygame.mouse.set_cursor(pygame.cursors.tri_right)
+#pygame.mouse.set_visible(False)
+# curs=pygame.image.load(os.path.join("cursor.png"))
+# curs.convert()
+# curs.set_colorkey((255,255,255))
+# curs.convert_alpha()
 pygame.display.set_caption("Nombre del juego")
 background = pygame.Surface((ven.get_size()))
 backgroundrect = background.get_rect()
@@ -42,6 +46,9 @@ while mainloop:
     playtime += seconds
     cycletime += seconds
     mypicture = arq[picnr]
+    #mouspos=pygame.mouse.get_pos()
+    #ven.blit(background.subsurface((300,300,28,37)),(mouspos[0],mouspos[1]))
+    #ven.blit(curs,(mouspos[0],mouspos[1]))
     #condicionales de stand y direccion
     if (der and izq and arr and aba) == False:
         standf=True

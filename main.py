@@ -2,9 +2,9 @@ import pygame, sys, os
 from pygame.locals import *
 pygame.init() #inicia pygame
 #inicia la ventana y su nombre
-dimx=500;dimy=500 #dimensiones de la ventana
+dimx=1280;dimy=720 #dimensiones de la ventana
 spritesheet = pygame.image.load(os.path.join("Arq44x76.png"))
-ven=pygame.display.set_mode((dimx,dimy),0,32)
+ven=pygame.display.set_mode((dimx,dimy),pygame.FULLSCREEN)
 spritesheet.convert()
 pygame.display.set_caption("Nombre del juego")
 background = pygame.Surface((ven.get_size()))
