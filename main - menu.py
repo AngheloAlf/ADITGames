@@ -6,13 +6,13 @@ dimx=1280;dimy=720 #dimensiones de la ventana
 char=""
 while True:
    char=raw_input("Arquera [A] o Guerrero [G]?? ")
-   if char=="A" or char=="G":
+   if char=="A" or char=="a" or char=="G" or char=="g":
       break
    else:print "Intente nuevamente"
-if char=="A":
+if char=="A" or char=="a":
    sprtx=48;sprty=76
    spritesheet = pygame.image.load(os.path.join("media","Arq44x76.png"))
-else:
+elif char=="G" or char=="g":
    sprtx=45;sprty=57
    spritesheet = pygame.image.load(os.path.join("media","Gue45x57.png"))
 #sprtx=48;sprty=76;#48x76 arq // 45*57 gue
@@ -23,7 +23,6 @@ spritesheet.convert();warning.convert()
 pygame.display.set_caption("Nombre del juego")
 background = pygame.image.load(os.path.join("media","background_resized.png"))
 backgroundrect = background.get_rect()
-#background.fill((255,255,255)) # relleno de fondo a cambiar por imagen
 background = background.convert()  
 ven.blit(background,(0,0))
 
@@ -128,6 +127,9 @@ while menuloop:
                 if event.key == pygame.K_a: izq = True
                 if event.key == pygame.K_w: arr= True
                 if event.key == pygame.K_s: aba= True
+                if event.key == pygame.K_p:
+                   juego = False;background = pygame.image.load(os.path.join("media","background_resized.png"))
+                   ven.blit(background,(0,0))
             elif event.type == pygame.KEYUP:
                 #if soltar tecla
                 if event.key == pygame.K_d: der=False
@@ -136,11 +138,8 @@ while menuloop:
                 if event.key == pygame.K_s: aba= False
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 if pygame.mouse.get_pressed()[0]==True:
-                   if (522<mouspos[0]<788)and (284<mouspos[1]<320):
-                      ven.blit(warning,(random.randint(0,dimx),random.randint(0,dimy)))
-                      pygame.mixer.Sound.play(click1)
-                   if (588<mouspos[0]<724)and (436<mouspos[1]<470):
-                      juego = False; sys.exit() # exit del "menu"
+                   ven.blit(warning,(random.randint(0,dimx),random.randint(0,dimy)))
+                   pygame.mixer.Sound.play(click1)
         if der and posx<(dimx-sprtx):
             ven.blit(background.subsurface((posx,posy,sprtx,sprty)),(posx,posy))#limpia y redibuja
             posx +=3;ven.blit(mypicture, (posx,posy))
