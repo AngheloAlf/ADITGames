@@ -3,7 +3,7 @@ from pygame.locals import *
 pygame.init() #inicia pygame
 #inicia la ventana y su nombre
 dimx=1280;dimy=720 #dimensiones de la ventana
-spritesheet = pygame.image.load(os.path.join("Arq44x76.png"))
+spritesheet = pygame.image.load(os.path.join("media","Arq44x76.png"))
 ven=pygame.display.set_mode((dimx,dimy),pygame.FULLSCREEN)
 spritesheet.convert()
 pygame.display.set_caption("Nombre del juego")

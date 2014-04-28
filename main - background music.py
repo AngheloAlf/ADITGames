@@ -2,9 +2,22 @@ import pygame, sys, os, random
 from pygame.locals import *
 pygame.init() #inicia pygame
 #inicia la ventana y su nombre
-dimx=1280;dimy=720 #dimensiones de la ventana
-spritesheet = pygame.image.load(os.path.join("Arq44x76.png"))
-warning=pygame.image.load(os.path.join("warn.png"))
+dimx=1278;dimy=718 #dimensiones de la ventana
+char=""
+while True:
+   char=raw_input("Arquera [A] o Guerrero [G]?? ")
+   if char=="A" or char=="G":
+      break
+   else:print "Intente nuevamente"
+if char=="A":
+   sprtx=48;sprty=76
+   spritesheet = pygame.image.load(os.path.join("media","Arq44x76.png"))
+else:
+   sprtx=45;sprty=57
+   spritesheet = pygame.image.load(os.path.join("media","Gue45x57.png"))
+#sprtx=48;sprty=76;#48x76 arq // 45*57 gue
+#spritesheet = pygame.image.load(os.path.join("media","Arq44x76.png"))
+warning=pygame.image.load(os.path.join("media","warn.png"))
 ven=pygame.display.set_mode((dimx,dimy),pygame.FULLSCREEN)
 spritesheet.convert();warning.convert()
 pygame.display.set_caption("Nombre del juego")
@@ -20,24 +33,20 @@ data_dir = os.path.join(main_dir, 'media')         ##para que la musica este en 
 pygame.mixer.init(frequency=22050, size=-16, channels=8, buffer=4096) ##iniciador de mixer
 sound=pygame.mixer.Sound(os.path.join(data_dir, "overworld1.ogg"))      ##musica de fondo(test)
 paso=pygame.mixer.Sound(os.path.join(data_dir, "wood1.ogg"))         ##sonido cuando caminas
-GR=pygame.mixer.Sound(os.path.join(data_dir, "GourmetRace.ogg"))     ##prueba useless :C
-GR.set_volume(0.3)       ##volumen de GR
+menu=pygame.mixer.Sound(os.path.join(data_dir, "menu.ogg"))     ##prueba useless :C
+#menu.set_volume(0.3)       ##volumen de GR
 #paso.set_volume(1.0)       ##volumen de los pasos
-pygame.mixer.Sound.play(GR) ##se reproduce la musica de fondo
+pygame.mixer.Sound.play(menu) ##se reproduce la musica de fondo
 click1=pygame.mixer.Sound(os.path.join(data_dir, "hit1.ogg"))
 
 
 arq=[]
 for alf in range(1,11,1): # recorrer 10 elementos para arq
-   arq.append(spritesheet.subsurface((48*(alf-1),0,48,76)))
+   arq.append(spritesheet.subsurface((sprtx*(alf-1),0,sprtx,sprty)))
 for nbr in range(len(arq)):
     arq[nbr].set_colorkey((255,255,255)) # blanco = alpha
     arq[nbr] = arq[nbr].convert_alpha()
     print "alpha en =", nbr
-#bliteo de todos los cuadros
-#for nbr in range(len(arq)):
-#    ven.blit(arq[nbr], (nbr*48, 0))  #blit de el arq[]
-#    print "blit de =", nbr
 
 clock = pygame.time.Clock()        #clock para milisec.
 mainloop = True
@@ -64,32 +73,23 @@ while mainloop:
     if cycletime > interval:
         if standf:
             picnr=0
-            ven.blit(background.subsurface((posx,posy,48,76)),(posx,posy)) #limpia imagen anterior
+            ven.blit(background.subsurface((posx,posy,sprtx,sprty)),(posx,posy)) #limpia imagen anterior
             ven.blit(mypicture, (posx,posy))
         if standb:
             picnr=3
-            ven.blit(background.subsurface((posx,posy,48,76)),(posx,posy)) 
+            ven.blit(background.subsurface((posx,posy,sprtx,sprty)),(posx,posy)) 
             ven.blit(mypicture, (posx,posy))                
         if (der or izq or aba)and (not arr):
-            ven.blit(background.subsurface((posx,posy,48,76)),(posx,posy)) 
+            ven.blit(background.subsurface((posx,posy,sprtx,sprty)),(posx,posy)) 
             ven.blit(mypicture, (posx,posy))
             pygame.mixer.Sound.play(paso) #reproduce el sonido de los pasos cuando caminas
             picnr += 1
             if picnr >= 3:
-                picnr = 1
-        # if (arr or izq)and (not der or aba):
-        #     if picnr!=5:
-        #         picnr = 4 
-        #     ven.blit(background.subsurface((300,300,48,76)),(posx,posy)) 
-        #     ven.blit(mypicture, (posx,posy))
-        #     picnr += 1
-        #     if picnr >= 6:
-        #         picnr = 4
-            
+                picnr = 1            
         if arr:
             if picnr!=5:
                 picnr=4
-            ven.blit(background.subsurface((posx,posy,48,76)),(posx,posy)) 
+            ven.blit(background.subsurface((posx,posy,sprtx,sprty)),(posx,posy)) 
             ven.blit(mypicture, (posx,posy))
             picnr += 1
             pygame.mixer.Sound.play(paso) #reproduce el sonido de los pasos cuando caminas
@@ -119,17 +119,19 @@ while mainloop:
                if (522<mouspos[0]<788)and (284<mouspos[1]<320):
                   ven.blit(warning,(random.randint(0,dimx),random.randint(0,dimy)))
                   pygame.mixer.Sound.play(click1)
-    if der and posx<(dimx-48):
-        ven.blit(background.subsurface((posx,posy,48,76)),(posx,posy))#limpia y redibuja
+               if (588<mouspos[0]<724)and (436<mouspos[1]<470):
+                  mainloop = False; sys.exit() # exit del "menu"
+    if der and posx<(dimx-sprtx):
+        ven.blit(background.subsurface((posx,posy,sprtx,sprty)),(posx,posy))#limpia y redibuja
         posx +=3;ven.blit(mypicture, (posx,posy))
     if izq and posx > 0:
-        ven.blit(background.subsurface((posx,posy,48,76)),(posx,posy))
+        ven.blit(background.subsurface((posx,posy,sprtx,sprty)),(posx,posy))
         posx -=3;ven.blit(mypicture, (posx,posy))
     if arr and posy > 0:
-        ven.blit(background.subsurface((posx,posy,48,76)),(posx,posy))
+        ven.blit(background.subsurface((posx,posy,sprtx,sprty)),(posx,posy))
         posy -=3;ven.blit(mypicture, (posx,posy))
-    if aba and posy<(dimy-76):
-        ven.blit(background.subsurface((posx,posy,48,76)),(posx,posy))
+    if aba and posy<(dimy-sprty):
+        ven.blit(background.subsurface((posx,posy,sprtx,sprty)),(posx,posy))
         posy +=3;ven.blit(mypicture, (posx,posy))
 
     pygame.display.flip()
