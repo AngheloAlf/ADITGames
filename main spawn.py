@@ -2,8 +2,9 @@ import pygame, sys, os, random
 from pygame.locals import *
 pygame.init() #inicia pygame
 #inicia la ventana y su nombre
-dimx=1280;dimy=720 #dimensiones de la ventana
-spritesheet = pygame.image.load(os.path.join("Arq44x76.png"))
+dimx=1280;dimy=720#dimensiones de la ventana
+sprtx=45;sprty=57;#48x76 arq // 45*57 gue
+spritesheet = pygame.image.load(os.path.join("Gue45x57.png"))
 warning=pygame.image.load(os.path.join("warn.png"))
 ven=pygame.display.set_mode((dimx,dimy),pygame.FULLSCREEN)
 spritesheet.convert();warning.convert()
@@ -15,7 +16,7 @@ background = background.convert()
 ven.blit(background,(0,0))
 arq=[];warns=[]
 for alf in range(1,11,1): # recorrer 10 elementos para arq
-   arq.append(spritesheet.subsurface((48*(alf-1),0,48,76)))
+   arq.append(spritesheet.subsurface((sprtx*(alf-1),0,sprtx,sprty)))
 for nbr in range(len(arq)):
     arq[nbr].set_colorkey((255,255,255)) # blanco = alpha
     arq[nbr] = arq[nbr].convert_alpha()
@@ -49,14 +50,14 @@ while mainloop:
     if cycletime > interval:
         if standf:
             picnr=0
-            ven.blit(background.subsurface((300,300,48,76)),(posx,posy)) #limpia imagen anterior
+            ven.blit(background.subsurface((300,300,sprtx,sprty)),(posx,posy)) #limpia imagen anterior
             ven.blit(mypicture, (posx,posy))
         if standb:
             picnr=3
-            ven.blit(background.subsurface((300,300,48,76)),(posx,posy)) 
+            ven.blit(background.subsurface((300,300,sprtx,sprty)),(posx,posy)) 
             ven.blit(mypicture, (posx,posy))                
         if (der or izq or aba)and (not arr):
-            ven.blit(background.subsurface((300,300,48,76)),(posx,posy)) 
+            ven.blit(background.subsurface((300,300,sprtx,sprty)),(posx,posy)) 
             ven.blit(mypicture, (posx,posy))
             picnr += 1
             if picnr >= 3:
@@ -64,7 +65,7 @@ while mainloop:
         if arr:
             if picnr!=5:
                 picnr=4
-            ven.blit(background.subsurface((300,300,48,76)),(posx,posy)) 
+            ven.blit(background.subsurface((300,300,sprtx,sprty)),(posx,posy)) 
             ven.blit(mypicture, (posx,posy))
             picnr += 1
             if picnr >= 6:
@@ -91,17 +92,17 @@ while mainloop:
         elif event.type == pygame.MOUSEBUTTONDOWN:
             if pygame.mouse.get_pressed()[0]==True:
                 ven.blit(warning,(random.randint(0,dimx),random.randint(0,dimy)))
-    if der and posx<(dimx-48):
-        ven.blit(background.subsurface((0,0,48,76)),(posx,posy))#limpia y redibuja
+    if der and posx<(dimx-sprtx):
+        ven.blit(background.subsurface((0,0,sprtx,sprty)),(posx,posy))#limpia y redibuja
         posx +=3;ven.blit(mypicture, (posx,posy))
     if izq and posx > 0:
-        ven.blit(background.subsurface((0,0,48,76)),(posx,posy))
+        ven.blit(background.subsurface((0,0,sprtx,sprty)),(posx,posy))
         posx -=3;ven.blit(mypicture, (posx,posy))
     if arr and posy > 0:
-        ven.blit(background.subsurface((0,0,48,76)),(posx,posy))
+        ven.blit(background.subsurface((0,0,sprtx,sprty)),(posx,posy))
         posy -=3;ven.blit(mypicture, (posx,posy))
-    if aba and posy<(dimy-76):
-        ven.blit(background.subsurface((0,0,48,76)),(posx,posy))
+    if aba and posy<(dimy-sprty):
+        ven.blit(background.subsurface((0,0,sprtx,sprty)),(posx,posy))
         posy +=3;ven.blit(mypicture, (posx,posy))
 
     pygame.display.flip()
