@@ -39,7 +39,6 @@ menu=pygame.mixer.Sound(os.path.join(data_dir, "menu.ogg"))     ##prueba useless
 pygame.mixer.Sound.play(menu) ##se reproduce la musica de fondo
 click1=pygame.mixer.Sound(os.path.join(data_dir, "hit1.ogg"))
 
-
 arq=[]
 for alf in range(1,11,1): # recorrer 10 elementos para arq
    arq.append(spritesheet.subsurface((sprtx*(alf-1),0,sprtx,sprty)))
