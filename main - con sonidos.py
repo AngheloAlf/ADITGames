@@ -14,14 +14,13 @@ background = background.convert()
 ven.blit(background,(0,0))
 
 main_dir = os.path.split(os.path.abspath(__file__))[0]
-data_dir = os.path.join(main_dir, 'media')
-
-pygame.mixer.init(frequency=22050, size=-16, channels=8, buffer=4096)
-sound=pygame.mixer.Sound(os.path.join(data_dir, "overworld1.ogg"))
-paso=pygame.mixer.Sound(os.path.join(data_dir, "wood1.ogg"))
-paso.set_volume(0.4)
-pygame.mixer.Sound.play(sound)
-
+data_dir = os.path.join(main_dir, 'media')         ##para que la musica este en la carpeta media
+pygame.mixer.init(frequency=22050, size=-16, channels=8, buffer=4096) ##iniciador de mixer
+sound=pygame.mixer.Sound(os.path.join(data_dir, "overworld1.ogg"))      ##musica de fondo(test)
+paso=pygame.mixer.Sound(os.path.join(data_dir, "wood1.ogg"))         ##sonido cuando caminas
+GR=pygame.mixer.Sound(os.path.join(data_dir, "GourmetRace.ogg"))     ##prueba useless :C
+paso.set_volume(0.4)       ##volumen de los pasos
+pygame.mixer.Sound.play(sound) ##se reproduce la musica de fondo
 
 arq=[]
 for alf in range(1,11,1): # recorrer 10 elementos para arq
@@ -45,6 +44,7 @@ picnr = 0
 posx=300;posy=300 #posiciones de img
 der= False;aba=False;izq=False;arr= False # variables de movimiento en falso
 standf=True;standb=False #detenido hacia adelante o atras
+
 while mainloop:
     milliseconds = clock.tick(FPS)  # milisec despues del ultimo frame
     seconds = milliseconds / 1000.0 # seconds q pasaron del utimo frame
@@ -68,7 +68,7 @@ while mainloop:
         if (der or izq or aba)and (not arr):
             ven.blit(background.subsurface((300,300,48,76)),(posx,posy)) 
             ven.blit(mypicture, (posx,posy))
-            pygame.mixer.Sound.play(paso)
+            pygame.mixer.Sound.play(paso) #reproduce el sonido de los pasos cuando caminas
             picnr += 1
             if picnr >= 3:
                 picnr = 1
@@ -92,6 +92,8 @@ while mainloop:
                 picnr = 4
         cycletime = 0
 
+                
+            
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             mainloop = False # X de la ventana
@@ -110,6 +112,7 @@ while mainloop:
             if event.key == pygame.K_a: izq = False
             if event.key == pygame.K_w: arr= False
             if event.key == pygame.K_s: aba= False
+
     if der and posx<(dimx-48):
         ven.blit(background.subsurface((0,0,48,76)),(posx,posy))#limpia y redibuja
         posx +=3;ven.blit(mypicture, (posx,posy))
