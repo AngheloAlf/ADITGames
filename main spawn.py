@@ -42,6 +42,7 @@ while mainloop:
     playtime += seconds
     cycletime += seconds
     mypicture = arq[picnr]
+    mouspos=pygame.mouse.get_pos()
     #condicionales de stand y direccion
     if (der and izq and arr and aba) == False:
         standf=True
@@ -91,7 +92,8 @@ while mainloop:
             if event.key == pygame.K_s: aba= False
         elif event.type == pygame.MOUSEBUTTONDOWN:
             if pygame.mouse.get_pressed()[0]==True:
-                ven.blit(warning,(random.randint(0,dimx),random.randint(0,dimy)))
+               if (590<mouspos[0]<670)and (408<mouspos[1]<440):
+                  ven.blit(warning,(random.randint(0,dimx),random.randint(0,dimy)))
     if der and posx<(dimx-sprtx):
         ven.blit(background.subsurface((0,0,sprtx,sprty)),(posx,posy))#limpia y redibuja
         posx +=3;ven.blit(mypicture, (posx,posy))
