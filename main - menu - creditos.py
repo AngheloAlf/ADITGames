@@ -52,7 +52,7 @@ clock = pygame.time.Clock()        #clock para milisec.
 juego = False
 creditos = False
 menuloop=True
-FPS = 65                   #FPS dejemos la caga con los fps :D okno C:
+FPS = 65                 #FPS dejemos la caga con los fps :D okno C:
 playtime = 0
 cycletime = 0
 interval = .10 # cuanto tiempo esta cada imagen app .-.
@@ -69,9 +69,9 @@ while menuloop:
     for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 juego = False # X de la ventana
-            elif event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_ESCAPE:
-                    juego = False; sys.exit() # ESC salir
+##            elif event.type == pygame.KEYDOWN:
+##                if event.key == pygame.K_ESCAPE:
+##                    juego = False; sys.exit() # ESC salir
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 if pygame.mouse.get_pressed()[0]==True: #Ejecuta el juego
                     if (522<mouspos[0]<788)and (284<mouspos[1]<320):
@@ -94,12 +94,12 @@ while menuloop:
        mouspos=pygame.mouse.get_pos()
        for event in pygame.event.get():
           if event.type == pygame.KEYDOWN:
-             if event.key == pygame.K_p:
+             if event.key == pygame.K_ESCAPE:
                 creditos = False;background = pygame.image.load(os.path.join("media","background_resized.png"))
                 ven.blit(background,(0,0))
        pygame.display.flip()
 
-    while juego:
+    while juego:         
         if cambiarmusica == True:
            pygame.mixer.Sound.stop(menu)
            pygame.mixer.Sound.play(test, loops=-1)
@@ -146,17 +146,20 @@ while menuloop:
             if event.type == pygame.QUIT:
                 juego = False # X de la ventana
             elif event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_ESCAPE:
-                    juego = False; sys.exit() # ESC salir
+                if event.key == pygame.K_ESCAPE: 
+                     juego = False;background = pygame.image.load(os.path.join("media","background_resized.png"))
+                     ven.blit(background,(0,0))
+                     cambiarmusica=True
+#                    juego = False; sys.exit() # ESC salir
                 #if presionar tecla
                 if event.key == pygame.K_d: der=True
                 if event.key == pygame.K_a: izq = True
                 if event.key == pygame.K_w: arr= True
                 if event.key == pygame.K_s: aba= True
-                if event.key == pygame.K_p:
-                   juego = False;background = pygame.image.load(os.path.join("media","background_resized.png"))
-                   ven.blit(background,(0,0))
-                   cambiarmusica=True
+##                if event.key == pygame.K_p:
+##                   juego = False;background = pygame.image.load(os.path.join("media","background_resized.png"))
+##                   ven.blit(background,(0,0))
+##                   cambiarmusica=True
             elif event.type == pygame.KEYUP:
                 #if soltar tecla
                 if event.key == pygame.K_d: der=False
