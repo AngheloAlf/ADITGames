@@ -31,11 +31,13 @@ main_dir = os.path.split(os.path.abspath(__file__))[0]
 data_dir = os.path.join(main_dir, 'media')         ##para que la musica este en la carpeta media
 pygame.mixer.init(frequency=22050, size=-16, channels=8, buffer=4096) ##iniciador de mixer
 paso=pygame.mixer.Sound(os.path.join(data_dir, "wood1.ogg"))         ##sonido cuando caminas
-menu=pygame.mixer.Sound(os.path.join(data_dir, "menu.ogg"))     ##prueba useless :C
+menu=pygame.mixer.Sound(os.path.join(data_dir, "menu.ogg"))     ##musica del menu
 #menu.set_volume(0.3)       ##volumen de GR
 #paso.set_volume(1.0)       ##volumen de los pasos
-pygame.mixer.Sound.play(menu) ##se reproduce la musica de fondo
+pygame.mixer.Sound.play(menu, loops=-1) ##se reproduce la musica de fondo
 click1=pygame.mixer.Sound(os.path.join(data_dir, "hit1.ogg"))
+cambiarmusica = False
+test=pygame.mixer.Sound(os.path.join(data_dir, "test.ogg"))  ##test para cambio de musica (sera cambiada)
 
 arq=[]
 for alf in range(1,11,1): # recorrer 10 elementos para arq
@@ -44,6 +46,7 @@ for nbr in range(len(arq)):
     arq[nbr].set_colorkey((255,255,255)) # blanco = alpha
     arq[nbr] = arq[nbr].convert_alpha()
     print "alpha en =", nbr
+
 
 clock = pygame.time.Clock()        #clock para milisec.
 juego = False
@@ -58,6 +61,10 @@ posx=300;posy=300 #posiciones de img
 der= False;aba=False;izq=False;arr= False # variables de movimiento en falso
 standf=True;standb=False #detenido hacia adelante o atras
 while menuloop:
+    if cambiarmusica==True:
+       pygame.mixer.Sound.stop(test)
+       pygame.mixer.Sound.play(menu, loops=-1)
+       cambiarmusica=False
     mouspos=pygame.mouse.get_pos()
     for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -66,8 +73,9 @@ while menuloop:
                 if event.key == pygame.K_ESCAPE:
                     juego = False; sys.exit() # ESC salir
             elif event.type == pygame.MOUSEBUTTONDOWN:
-                if pygame.mouse.get_pressed()[0]==True:
+                if pygame.mouse.get_pressed()[0]==True: #Ejecuta el juego
                     if (522<mouspos[0]<788)and (284<mouspos[1]<320):
+                        cambiarmusica = True
                         pygame.mixer.Sound.play(click1)
                         juego=True;background.fill((255,255,255))
                         background = background.convert()
@@ -92,6 +100,10 @@ while menuloop:
        pygame.display.flip()
 
     while juego:
+        if cambiarmusica == True:
+           pygame.mixer.Sound.stop(menu)
+           pygame.mixer.Sound.play(test, loops=-1)
+           cambiarmusica = False
         milliseconds = clock.tick(FPS)  # milisec despues del ultimo frame
         seconds = milliseconds / 1000.0 # seconds q pasaron del utimo frame
         playtime += seconds
@@ -144,6 +156,7 @@ while menuloop:
                 if event.key == pygame.K_p:
                    juego = False;background = pygame.image.load(os.path.join("media","background_resized.png"))
                    ven.blit(background,(0,0))
+                   cambiarmusica=True
             elif event.type == pygame.KEYUP:
                 #if soltar tecla
                 if event.key == pygame.K_d: der=False
