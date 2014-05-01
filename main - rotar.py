@@ -15,6 +15,7 @@ if char=="A":
 else:
    sprtx=45;sprty=57
    spritesheet = pygame.image.load(os.path.join("media","Gue45x57.png"))
+
 #spritesheet = pygame.image.load(os.path.join("media","Arq44x76.png"))
 ven=pygame.display.set_mode((dimx,dimy),pygame.FULLSCREEN)
 spritesheet.convert()
@@ -24,6 +25,15 @@ backgroundrect = background.get_rect()
 #background.fill((255,255,255)) # relleno de fondo a cambiar por imagen
 background = background.convert()  
 ven.blit(background,(0,0))
+bull=[]
+bulletn = pygame.image.load(os.path.join("media","bullet.png"))
+bulletn = background.convert()
+for ang in range(1,180):
+   bull.append(pygame.transform.rotate(bulletn,ang))
+for bul in range (178):
+   bull[bul].convert()
+   print 'bala',bul,'convertida'
+   
 
 #Codigo de musica
 main_dir = os.path.split(os.path.abspath(__file__))[0]
@@ -36,7 +46,7 @@ menu=pygame.mixer.Sound(os.path.join(data_dir, "menu.ogg"))     ##prueba useless
 #paso.set_volume(1.0)       ##volumen de los pasos
 pygame.mixer.Sound.play(menu) ##se reproduce la musica de fondo
 click1=pygame.mixer.Sound(os.path.join(data_dir, "hit1.ogg"))
-
+bn=1
 arq=[]
 for alf in range(1,11,1): # recorrer 10 elementos para arq
    arq.append(spritesheet.subsurface((sprtx*(alf-1),0,sprtx,sprty)))
@@ -88,6 +98,7 @@ while menuloop:
         if (der or izq or arr or aba) == True:
             standf=False
         if cycletime > interval:
+            ven.blit(bull[bn], (100,100))
             if standf:
                picnr=0
                ven.blit(background.subsurface((posx,posy,sprtx,sprty)),(posx,posy)) #limpia imagen anterior
@@ -113,6 +124,7 @@ while menuloop:
                 picnr += 1
                 if picnr >= 6:
                     picnr = 4
+            bn+=1
             cycletime = 0
 
         for event in pygame.event.get():
