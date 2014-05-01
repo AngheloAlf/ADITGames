@@ -31,9 +31,9 @@ main_dir = os.path.split(os.path.abspath(__file__))[0]
 data_dir = os.path.join(main_dir, 'media')         ##para que la musica este en la carpeta media
 pygame.mixer.init(frequency=22050, size=-16, channels=8, buffer=4096) ##iniciador de mixer
 paso=pygame.mixer.Sound(os.path.join(data_dir, "wood1.ogg"))         ##sonido cuando caminas
+error=pygame.mixer.Sound(os.path.join(data_dir, "error.ogg"))         ##sonido de error
 menu=pygame.mixer.Sound(os.path.join(data_dir, "menu.ogg"))     ##musica del menu
-#menu.set_volume(0.3)       ##volumen de GR
-#paso.set_volume(1.0)       ##volumen de los pasos
+#menu.set_volume(0.7)       ##volumen del menu
 pygame.mixer.Sound.play(menu, loops=-1) ##se reproduce la musica de fondo
 click1=pygame.mixer.Sound(os.path.join(data_dir, "hit1.ogg"))
 cambiarmusica = False
@@ -72,9 +72,13 @@ while menuloop:
 ##            elif event.type == pygame.KEYDOWN:
 ##                if event.key == pygame.K_ESCAPE:
 ##                    juego = False; sys.exit() # ESC salir
+            elif (546<mouspos[0]<774)and (305<mouspos[1]<350):
+               pygame.mixer.Sound.play(error)
+            elif (546<mouspos[0]<823)and (396<mouspos[1]<432):
+               pygame.mixer.Sound.play(error)
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 if pygame.mouse.get_pressed()[0]==True: #Ejecuta el juego
-                    if (522<mouspos[0]<788)and (284<mouspos[1]<320):
+                    if (505<mouspos[0]<788)and (284<mouspos[1]<320):
                         cambiarmusica = True
                         pygame.mixer.Sound.play(click1)
                         juego=True;background.fill((255,255,255))
