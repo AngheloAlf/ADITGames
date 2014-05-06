@@ -4,22 +4,22 @@ pygame.init() #inicia pygame
 #inicia la ventana y su nombre
 dimx=1280;dimy=720 #dimensiones de la ventana
 char=""
-while True:
-   char=raw_input("Arquera [A] o Guerrero [G]?? ")
-   if char=="A" or char=="a" or char=="G" or char=="g":
-      break
-   else:print "Intente nuevamente"
-if char=="A" or char=="a":
-   sprtx=48;sprty=76
-   spritesheet = pygame.image.load(os.path.join("media","Arq44x76.png"))
-elif char=="G" or char=="g":
-   sprtx=45;sprty=57
-   spritesheet = pygame.image.load(os.path.join("media","Gue45x57.png"))
+##while True:
+##   char=raw_input("Arquera [A] o Guerrero [G]?? ")
+##   if char=="A" or char=="a" or char=="G" or char=="g":
+##      break
+##   else:print "Intente nuevamente"
+##if char=="A" or char=="a":
+##   sprtx=48;sprty=76
+##   spritesheet = pygame.image.load(os.path.join("media","Arq44x76.png"))
+##elif char=="G" or char=="g":
+##   sprtx=45;sprty=57
+##   spritesheet = pygame.image.load(os.path.join("media","Gue45x57.png"))
 #sprtx=48;sprty=76;#48x76 arq // 45*57 gue
 #spritesheet = pygame.image.load(os.path.join("media","Arq44x76.png"))
 warning=pygame.image.load(os.path.join("media","warn.png"))
 ven=pygame.display.set_mode((dimx,dimy),pygame.FULLSCREEN)
-spritesheet.convert();warning.convert()
+warning.convert()
 pygame.display.set_caption("Nombre del juego")
 background = pygame.image.load(os.path.join("media","background_resized.png"))
 backgroundrect = background.get_rect()
@@ -39,19 +39,21 @@ click1=pygame.mixer.Sound(os.path.join(data_dir, "hit1.ogg"))
 cambiarmusica = False
 test=pygame.mixer.Sound(os.path.join(data_dir, "test.ogg"))  ##test para cambio de musica (sera cambiada)
 
-arq=[]
-for alf in range(1,11,1): # recorrer 10 elementos para arq
-   arq.append(spritesheet.subsurface((sprtx*(alf-1),0,sprtx,sprty)))
-for nbr in range(len(arq)):
-    arq[nbr].set_colorkey((255,255,255)) # blanco = alpha
-    arq[nbr] = arq[nbr].convert_alpha()
-    print "alpha en =", nbr
+##arq=[]
+##for alf in range(1,11,1): # recorrer 10 elementos para arq
+##   arq.append(spritesheet.subsurface((sprtx*(alf-1),0,sprtx,sprty)))
+##for nbr in range(len(arq)):
+##    arq[nbr].set_colorkey((255,255,255)) # blanco = alpha
+##    arq[nbr] = arq[nbr].convert_alpha()
+##    print "alpha en =", nbr
 
 
 clock = pygame.time.Clock()        #clock para milisec.
 juego = False
 creditos = False
+instructions = False
 menuloop=True
+charselect=False
 FPS = 65                 #FPS dejemos la caga con los fps :D okno C:
 playtime = 0
 cycletime = 0
@@ -72,27 +74,82 @@ while menuloop:
 ##            elif event.type == pygame.KEYDOWN:
 ##                if event.key == pygame.K_ESCAPE:
 ##                    juego = False; sys.exit() # ESC salir
-            elif (546<mouspos[0]<774)and (305<mouspos[1]<350):
-               pygame.mixer.Sound.play(error)
-            elif (546<mouspos[0]<823)and (396<mouspos[1]<432):
-               pygame.mixer.Sound.play(error)
+            
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 if pygame.mouse.get_pressed()[0]==True: #Ejecuta el juego
                     if (505<mouspos[0]<788)and (284<mouspos[1]<320):
                         cambiarmusica = True
                         pygame.mixer.Sound.play(click1)
-                        juego=True;background.fill((255,255,255))
+                        #juego=True;background.fill((255,255,255))
+                        charselect=True
+                        background = pygame.image.load(os.path.join("media","Characters_Selector.png"))
                         background = background.convert()
                         ven.blit(background,(0,0))
                     if (556<mouspos[0]<742)and (356<mouspos[1]<388): #creditos
                         pygame.mixer.Sound.play(click1)
                         background = pygame.image.load(os.path.join("media","creditos.png"))
-                        #background = background.convert()
+                        background = background.convert()
                         ven.blit(background,(0,0))
                         creditos = True
+                    if (503<mouspos[0]<825)and (392<mouspos[1]<433): #instrucciones
+                        pygame.mixer.Sound.play(click1)
+                        background = pygame.image.load(os.path.join("media","instructions.png"))
+                        background = background.convert()
+                        ven.blit(background,(0,0))
+                        instructions = True
+                    if (546<mouspos[0]<774)and (305<mouspos[1]<350):#opciones (sonido de error)
+                        pygame.mixer.Sound.play(error)
                     if (588<mouspos[0]<724)and (436<mouspos[1]<470):
                         pygame.mixer.Sound.play(click1)
                         juego = False; sys.exit() # exit del "menu"
+
+    while charselect:
+       if cambiarmusica == True:
+           pygame.mixer.Sound.stop(menu)
+           pygame.mixer.Sound.play(test, loops=-1)
+           cambiarmusica = False
+       mouspos=pygame.mouse.get_pos()
+       for event in pygame.event.get():
+          if event.type == pygame.KEYDOWN:
+             if event.key == pygame.K_ESCAPE:
+                cambiarmusica=True
+                creditos = False;background = pygame.image.load(os.path.join("media","background_resized.png"))
+                ven.blit(background,(0,0))
+          if event.type == pygame.MOUSEBUTTONDOWN:
+             if pygame.mouse.get_pressed()[0]==True: #Ejecuta el juego
+                if (62<mouspos[0]<325)and (64<mouspos[1]<160):
+                   sprtx=48;sprty=76
+                   spritesheet = pygame.image.load(os.path.join("media","Arq44x76.png"))
+                   spritesheet.convert()
+                   arq=[]
+                   for alf in range(1,11,1): # recorrer 10 elementos para arq
+                      arq.append(spritesheet.subsurface((sprtx*(alf-1),0,sprtx,sprty)))
+                   for nbr in range(len(arq)):
+                      arq[nbr].set_colorkey((255,255,255)) # blanco = alpha
+                      arq[nbr] = arq[nbr].convert_alpha()
+                      print "alpha en =", nbr
+                   pygame.mixer.Sound.play(click1)
+                   juego=True;background.fill((255,255,255))
+                   background = background.convert()
+                   ven.blit(background,(0,0))
+                   charselect = False
+                elif (62<mouspos[0]<350)and (190<mouspos[1]<255):
+                   sprtx=45;sprty=57
+                   spritesheet = pygame.image.load(os.path.join("media","Gue45x57.png"))
+                   spritesheet.convert()
+                   arq=[]
+                   for alf in range(1,11,1): # recorrer 10 elementos para arq
+                      arq.append(spritesheet.subsurface((sprtx*(alf-1),0,sprtx,sprty)))
+                   for nbr in range(len(arq)):
+                      arq[nbr].set_colorkey((255,255,255)) # blanco = alpha
+                      arq[nbr] = arq[nbr].convert_alpha()
+                      print "alpha en =", nbr
+                   pygame.mixer.Sound.play(click1)
+                   juego=True;background.fill((255,255,255))
+                   background = background.convert()
+                   ven.blit(background,(0,0))
+                   charselect = False
+       pygame.display.flip()
 
     while creditos:
        mouspos=pygame.mouse.get_pos()
@@ -103,6 +160,15 @@ while menuloop:
                 ven.blit(background,(0,0))
        pygame.display.flip()
 
+    while instructions:
+       mouspos=pygame.mouse.get_pos()
+       for event in pygame.event.get():
+          if event.type == pygame.KEYDOWN:
+             if event.key == pygame.K_ESCAPE:
+                instructions = False;background = pygame.image.load(os.path.join("media","background_resized.png"))
+                ven.blit(background,(0,0))
+       pygame.display.flip()
+    
     while juego:         
         if cambiarmusica == True:
            pygame.mixer.Sound.stop(menu)
