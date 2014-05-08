@@ -148,7 +148,8 @@ while menuloop:
         cycletime += seconds
         mypicture = arq[picnr]
         mouspos=pygame.mouse.get_pos()
-        censprt=(posx+sprtx/2,posy+sprty/2)
+        centrx,centry=(posx+sprtx/2), (posy+sprty/2)
+        dx, dy = mouspos[0]-centrx, mouspos[1]-centry
         #condicionales de stand y direccion
         if (der and izq and arr and aba) == False:
             standf=True
@@ -203,7 +204,7 @@ while menuloop:
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 if pygame.mouse.get_pressed()[0]==True:
                     ven.blit(warning,(random.randint(0,dimx),random.randint(0,dimy)))
-
+                    print 'angulo es ' , angulo(dx,dy)
                     pygame.mixer.Sound.play(click1)
         if der and posx<(dimx-sprtx):
             ven.blit(background.subsurface((posx,posy,sprtx,sprty)),(posx,posy))#limpia y redibuja
