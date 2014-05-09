@@ -1,7 +1,7 @@
 import pygame,math
 from pygame.locals import *
 def init_sprite(arq,spritesheet,sprtx,sprty):
-    for alf in range(1,11,1): # recorrer 10 elementos para arq
+    for alf in range(1,21,1): # recorrer 10 elementos para arq
        arq.append(spritesheet.subsurface((sprtx*(alf-1),0,sprtx,sprty)))
     for nbr in range(len(arq)):
         arq[nbr].set_colorkey((255,255,255)) # blanco = alpha

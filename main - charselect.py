@@ -108,9 +108,9 @@ while menuloop:
         ven.blit(background.subsurface((posx,posy,45,57)),(73,196)) ##
         ven.blit(gue[picnr], (73,196)) 
         picnr += 1
-        if picnr > 9:
+        if picnr > 19:
             picnr = 0
-        #cycletime = 0
+        cycletime = 0
 
         for event in pygame.event.get():
             if event.type == pygame.KEYDOWN:
@@ -186,19 +186,55 @@ while menuloop:
             if standf:
                 picnr=0
                 ven.blit(background.subsurface((posx,posy,sprtx,sprty)),(posx,posy)) #limpia imagen anterior
-                ven.blit(mypicture, (posx,posy))
-            if standb:
-                picnr=3
-                ven.blit(background.subsurface((posx,posy,sprtx,sprty)),(posx,posy)) 
-                ven.blit(mypicture, (posx,posy))                
-            if (der or izq or aba)and (not arr):
+                ven.blit(mypicture, (posx,posy))     
+
+            if (der or aba)and not (arr or izq):
                 ven.blit(background.subsurface((posx,posy,sprtx,sprty)),(posx,posy)) 
                 ven.blit(mypicture, (posx,posy))
                 pygame.mixer.Sound.play(paso) #reproduce el sonido de los pasos cuando caminas
                 picnr += 1
                 if picnr >= 3:
-                    picnr = 1            
-            if arr:
+                    picnr = 1       
+
+            if izq and not (der or aba or arr):
+                if picnr!=12:
+                    picnr=11
+                ven.blit(background.subsurface((posx,posy,sprtx,sprty)),(posx,posy)) 
+                ven.blit(mypicture, (posx,posy))
+                pygame.mixer.Sound.play(paso) #reproduce el sonido de los pasos cuando caminas
+                picnr += 1
+                if picnr >= 13:
+                    picnr = 11
+
+            if (aba and izq) and not (arr or der):
+                if picnr!=12:
+                    picnr=11
+                ven.blit(background.subsurface((posx,posy,sprtx,sprty)),(posx,posy)) 
+                ven.blit(mypicture, (posx,posy))
+                pygame.mixer.Sound.play(paso) #reproduce el sonido de los pasos cuando caminas
+                picnr += 1
+                if picnr >= 13:
+                    picnr = 11
+
+            if (aba and izq and der) and not (arr):
+                ven.blit(background.subsurface((posx,posy,sprtx,sprty)),(posx,posy)) 
+                ven.blit(mypicture, (posx,posy))
+                pygame.mixer.Sound.play(paso) #reproduce el sonido de los pasos cuando caminas
+                picnr += 1
+                if picnr >= 3:
+                    picnr = 1   
+
+            if (arr and der) and not (aba and izq):
+                if picnr!=15:
+                    picnr=14
+                ven.blit(background.subsurface((posx,posy,sprtx,sprty)),(posx,posy)) 
+                ven.blit(mypicture, (posx,posy))
+                pygame.mixer.Sound.play(paso) #reproduce el sonido de los pasos cuando caminas
+                picnr += 1
+                if picnr >= 16:
+                    picnr = 14
+
+            if arr and not der:
                 if picnr!=5:
                     picnr=4
                 ven.blit(background.subsurface((posx,posy,sprtx,sprty)),(posx,posy)) 
@@ -207,6 +243,8 @@ while menuloop:
                 pygame.mixer.Sound.play(paso) #reproduce el sonido de los pasos cuando caminas
                 if picnr >= 6:
                     picnr = 4
+
+            
             cycletime = 0
 
         for event in pygame.event.get():
