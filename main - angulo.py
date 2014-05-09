@@ -41,6 +41,9 @@ picnr = 0
 posx=300;posy=300 #posiciones de img
 der= False;aba=False;izq=False;arr= False # variables de movimiento en falso
 standf=True;standb=False #detenido hacia adelante o atras
+balas=[]
+arru=pygame.image.load(os.path.join("media","Arrow.png"))
+arru=arru.convert()
 while menuloop:
     if cambiarmusica==True:
         pygame.mixer.Sound.stop(test)
@@ -150,6 +153,12 @@ while menuloop:
         mouspos=pygame.mouse.get_pos()
         centrx,centry=(posx+sprtx/2), (posy+sprty/2)
         dx, dy = mouspos[0]-centrx, mouspos[1]-centry
+
+        #proyectiles!!!
+        for prr in balas:
+            prr.mover()
+            if prr.comprovar() == False:
+                del prr
         #condicionales de stand y direccion
         if (der and izq and arr and aba) == False:
             standf=True
@@ -204,7 +213,8 @@ while menuloop:
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 if pygame.mouse.get_pressed()[0]==True:
                     ven.blit(warning,(random.randint(0,dimx),random.randint(0,dimy)))
-                    print 'angulo es ' , angulo(dx,dy)
+                    balas.append(proyect(ven,posx,posy,9,background,direccion(angulo((mouspos[0]-centrx),(mouspos[1]-centry)))))
+                    balas[len(balas)-1].poner()
                     pygame.mixer.Sound.play(click1)
         if der and posx<(dimx-sprtx):
             ven.blit(background.subsurface((posx,posy,sprtx,sprty)),(posx,posy))#limpia y redibuja
