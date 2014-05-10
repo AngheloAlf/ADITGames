@@ -258,34 +258,37 @@ while menuloop:
                 if picnr >= 6:
                     picnr = 4
 
-            if (der and pygame.mouse.get_pressed()[0]) or (aba and pygame.mouse.get_pressed()[0]):
-                picnr = 6
-                ven.blit(background.subsurface((posx,posy,sprtx,sprty)),(posx,posy)) 
-                ven.blit(mypicture, (posx,posy))
-                #picnr = 6
-                pygame.mixer.Sound.play(paso) #reproduce el sonido de los pasos cuando caminas
-                
-            if (izq and pygame.mouse.get_pressed()[0]) or (aba and izq and pygame.mouse.get_pressed()[0]):
-                picnr = 16
-                ven.blit(background.subsurface((posx,posy,sprtx,sprty)),(posx,posy)) 
-                ven.blit(mypicture, (posx,posy))
-                #picnr = 6
-                pygame.mixer.Sound.play(paso) #reproduce el sonido de los pasos cuando caminas
-                
-            if (izq and arr and pygame.mouse.get_pressed()[0]) or (arr and pygame.mouse.get_pressed()[0]):
-                picnr = 7
-                ven.blit(background.subsurface((posx,posy,sprtx,sprty)),(posx,posy)) 
-                ven.blit(mypicture, (posx,posy))
-                #picnr = 6
-                pygame.mixer.Sound.play(paso) #reproduce el sonido de los pasos cuando caminas
-                
-            if (der and arr and pygame.mouse.get_pressed()[0]):
+            # if (der and arr and pygame.mouse.get_pressed()[0]):
+            if (posx< mouspos[0] and posy>mouspos[0] and pygame.mouse.get_pressed()[0]):
                 picnr = 17
                 ven.blit(background.subsurface((posx,posy,sprtx,sprty)),(posx,posy)) 
                 ven.blit(mypicture, (posx,posy))
                 #picnr = 6
-                pygame.mixer.Sound.play(paso) #reproduce el sonido de los pasos cuando caminas
-            
+                #pygame.mixer.Sound.play(paso) #reproduce el sonido de los pasos cuando caminas
+
+            #if (der and pygame.mouse.get_pressed()[0]) or (aba and pygame.mouse.get_pressed()[0]):
+            elif (posx< mouspos[0] and pygame.mouse.get_pressed()[0]) or (posy< mouspos[0] and pygame.mouse.get_pressed()[0]):
+                picnr = 6
+                ven.blit(background.subsurface((posx,posy,sprtx,sprty)),(posx,posy)) 
+                ven.blit(mypicture, (posx,posy))
+                #picnr = 6
+                #pygame.mixer.Sound.play(paso) #reproduce el sonido de los pasos cuando caminas
+                
+            #if (izq and pygame.mouse.get_pressed()[0]) or (aba and izq and pygame.mouse.get_pressed()[0]):
+            elif (posx>mouspos[0] and pygame.mouse.get_pressed()[0]) or (posy< mouspos[0] and posx>mouspos[0] and pygame.mouse.get_pressed()[0]):
+                picnr = 16
+                ven.blit(background.subsurface((posx,posy,sprtx,sprty)),(posx,posy)) 
+                ven.blit(mypicture, (posx,posy))
+                #picnr = 6
+                #pygame.mixer.Sound.play(paso) #reproduce el sonido de los pasos cuando caminas
+                
+            # if (izq and arr and pygame.mouse.get_pressed()[0]) or (arr and pygame.mouse.get_pressed()[0]):
+            elif (posx>mouspos[0] and posy< mouspos[0] and pygame.mouse.get_pressed()[0]) or (posy> mouspos[0] and pygame.mouse.get_pressed()[0]):
+                picnr = 7
+                ven.blit(background.subsurface((posx,posy,sprtx,sprty)),(posx,posy)) 
+                ven.blit(mypicture, (posx,posy))
+                #picnr = 6
+                #pygame.mixer.Sound.play(paso) #reproduce el sonido de los pasos cuando caminas          
 
             cycletime = 0
 
