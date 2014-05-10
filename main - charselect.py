@@ -7,7 +7,7 @@ dimx=1280;dimy=720 #dimensiones de la ventana
 warning=pygame.image.load(os.path.join("media","warn.png"))
 ven=pygame.display.set_mode((dimx,dimy),pygame.FULLSCREEN)
 warning.convert()
-pygame.display.set_caption("Nombre del juego") #Inicia el nombre de juego
+pygame.display.set_caption("Adit Games: Game 1") #Inicia el nombre de juego
 background = pygame.image.load(os.path.join("media","background_resized.png"))
 backgroundrect = background.get_rect()
 background = background.convert()  
@@ -33,6 +33,7 @@ creditos = False
 instructions = False
 menuloop=True
 charselect=False
+pausa = False
 FPS = 65                 #FPS dejemos la caga con los fps :D okno C:
 playtime = 0
 cycletime = 0
@@ -151,6 +152,7 @@ while menuloop:
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
                     creditos = False;background = pygame.image.load(os.path.join("media","background_resized.png"))
+                    background.convert()
                     ven.blit(background,(0,0))
         pygame.display.flip()
 
@@ -160,6 +162,7 @@ while menuloop:
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
                     instructions = False;background = pygame.image.load(os.path.join("media","background_resized.png"))
+                    background.convert()
                     ven.blit(background,(0,0))
         pygame.display.flip()
     
@@ -244,7 +247,6 @@ while menuloop:
                 if picnr >= 6:
                     picnr = 4
 
-            
             cycletime = 0
 
         for event in pygame.event.get():
@@ -252,9 +254,13 @@ while menuloop:
                 juego = False # X de la ventana
             elif event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE: 
-                    juego = False;background = pygame.image.load(os.path.join("media","background_resized.png"))
+                    background = pygame.image.load(os.path.join("media","pause.png"))
+                    background.convert()
                     ven.blit(background,(0,0))
-                    cambiarmusica=True
+                    pausa = True
+                    juego = False
+                    #juego = False
+                    #cambiarmusica=True
                 #if presionar tecla
                 if event.key == pygame.K_d: der=True
                 if event.key == pygame.K_a: izq = True
@@ -285,4 +291,44 @@ while menuloop:
             posy +=3;ven.blit(mypicture, (posx,posy))
 
         pygame.display.flip()
+
+    while pausa:
+        mouspos=pygame.mouse.get_pos()
+        for event in pygame.event.get():
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if pygame.mouse.get_pressed()[0]==True:
+                    if (540<mouspos[0]<741)and (280<mouspos[1]<314): #Continue
+                        print 'sacar pausa'
+                        #cambiarmusica = True
+                        pygame.mixer.Sound.play(click1)
+                        background.fill((255,255,255))
+                        background.convert()
+                        ven.blit(background,(0,0))
+                        juego=True
+                        pausa=False
+                    elif (540<mouspos[0]<741)and (327<mouspos[1]<358): #Restart
+                        pygame.mixer.Sound.play(click1)
+                        posx=300;posy=300
+                        background.fill((255,255,255))
+                        background.convert()
+                        ven.blit(background,(0,0))
+                        pausa=False
+                        juego=True
+                    elif (540<mouspos[0]<741)and (371<mouspos[1]<403): #Help
+                        pygame.mixer.Sound.play(error)
+                        # instructions=True
+                        # background = pygame.image.load(os.path.join("media","instructions.png"))
+                        # background = background.convert()
+                        # ven.blit(background,(0,0))
+                        # pausa=False
+                    elif (540<mouspos[0]<741)and (419<mouspos[1]<448):#MainMenu
+                        pygame.mixer.Sound.play(click1)
+                        background = pygame.image.load(os.path.join("media","background_resized.png"))
+                        background.convert()
+                        ven.blit(background,(0,0))
+                        pausa=False
+                        juego=False
+                        cambiarmusica=True
+        pygame.display.flip()
+
     pygame.display.flip()
