@@ -42,8 +42,6 @@ posx=300;posy=300 #posiciones de img
 der= False;aba=False;izq=False;arr= False # variables de movimiento en falso
 standf=True;standb=False #detenido hacia adelante o atras
 balas=[]
-arru=pygame.image.load(os.path.join("media","Arrow.png"))
-arru=arru.convert()
 while menuloop:
     if cambiarmusica==True:
         pygame.mixer.Sound.stop(test)
@@ -155,10 +153,13 @@ while menuloop:
         dx, dy = mouspos[0]-centrx, mouspos[1]-centry
 
         #proyectiles!!!
+        nb=0
         for prr in balas:
             prr.mover()
             if prr.comprovar() == False:
-                del prr
+                #ven.blit(background.subsurface((prr.posx,prr.posy,prr.prox,prr.proy)),(prr.posx,prr.posy))
+                delete=balas.pop(nb)
+            nb+=1
         #condicionales de stand y direccion
         if (der and izq and arr and aba) == False:
             standf=True

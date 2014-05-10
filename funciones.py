@@ -11,7 +11,7 @@ def angulo(dx,dy):
     # """Angulos desde 0 a 360 en sentido HORARIO 
     # el 0 esta arriba!
     # """
-    if dx == 0: ## Special case to prevent zero-division
+    if dx == 0: ## NOOOOO CERO NOOOO x3
         if dy > 0:
             return 180
         elif dy < 0:
@@ -33,20 +33,32 @@ class proyect():
         self.dire=dirr
         self.vel=velo
         self.back=back
-        self.prox=14;self.proy=36
+        self.prox=36;self.proy=36
         self.arr=pygame.image.load(os.path.join("media","Arrow.png"))
+        self.arr.convert()
+        self.arr=self.rotar()
     def poner(self,):
         self.surf.blit(self.arr,(self.posx,self.posy))
     def comprovar(self):
-        if 0< self.posx < 1265 and 0< self.posy < 682:
+        if 0< self.posx < 1243 and 0< self.posy < 683:
             return True
         else:
             return False
+    def rotar(self):
+        if self.dire=="nn":self.arr=pygame.transform.rotate(self.arr,180);self.arr.convert()
+        elif self.dire=="ne":self.arr=pygame.transform.rotate(self.arr,135);self.arr.convert()
+        elif self.dire=="no":self.arr=pygame.transform.rotate(self.arr,225);self.arr.convert()
+        elif self.dire=="oo":self.arr=pygame.transform.rotate(self.arr,270);self.arr.convert()
+        elif self.dire=="so":self.arr=pygame.transform.rotate(self.arr,315);self.arr.convert()
+        elif self.dire=="se":self.arr=pygame.transform.rotate(self.arr,45);self.arr.convert()
+        elif self.dire=="ee":self.arr=pygame.transform.rotate(self.arr,90);self.arr.convert()
+        return self.arr
 
     def mover(self):
         if self.dire=="nn":
             if self.comprovar():
                 self.surf.blit(self.back.subsurface((self.posx,self.posy,self.prox,self.proy)),(self.posx,self.posy))
+                self.arr.convert()
                 self.posy-=self.vel
                 self.surf.blit(self.arr,(self.posx,self.posy))
         elif self.dire=="ne":
