@@ -8,7 +8,7 @@ warning=pygame.image.load(os.path.join("media","warn.png"))
 ven=pygame.display.set_mode((dimx,dimy),pygame.FULLSCREEN)
 warning.convert()
 pygame.display.set_caption("Adit Games: Game 1") #Inicia el nombre de juego
-background = pygame.image.load(os.path.join("media","background_resized.png"))
+background = pygame.image.load(os.path.join("media","menu.png"))
 backgroundrect = background.get_rect()
 background = background.convert()  
 ven.blit(background,(0,0))
@@ -33,7 +33,7 @@ creditos = False
 instructions = False
 menuloop=True
 charselect=False
-pausa = False
+pausa=False
 FPS = 65                 #FPS dejemos la caga con los fps :D okno C:
 playtime = 0
 cycletime = 0
@@ -42,6 +42,7 @@ picnr = 0
 posx=300;posy=300 #posiciones de img
 der= False;aba=False;izq=False;arr= False # variables de movimiento en falso
 standf=True;standb=False #detenido hacia adelante o atras
+balas=[]
 while menuloop:
     if cambiarmusica==True:
         pygame.mixer.Sound.stop(test)
@@ -88,7 +89,7 @@ while menuloop:
             cambiarmusica = False
         mouspos=pygame.mouse.get_pos()
 
-        #los personajes se mueven en el menu de seleccion de personajes :P
+        #los personajes se mueven en el menu :P
         posx=300;posy=300
         spritesheet = pygame.image.load(os.path.join("media","Arq44x76.png"))
         spritesheet.convert()
@@ -118,7 +119,7 @@ while menuloop:
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
                     cambiarmusica=True
-                    creditos = False;background = pygame.image.load(os.path.join("media","background_resized.png"))
+                    creditos = False;background = pygame.image.load(os.path.join("media","menu.png"))
                     charselect = False
                     ven.blit(background,(0,0))
             if event.type == pygame.MOUSEBUTTONDOWN:
@@ -152,7 +153,7 @@ while menuloop:
         for event in pygame.event.get():
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
-                    creditos = False;background = pygame.image.load(os.path.join("media","background_resized.png"))
+                    creditos = False;background = pygame.image.load(os.path.join("media","menu.png"))
                     background.convert()
                     ven.blit(background,(0,0))
         pygame.display.flip()
@@ -162,7 +163,7 @@ while menuloop:
         for event in pygame.event.get():
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
-                    instructions = False;background = pygame.image.load(os.path.join("media","background_resized.png"))
+                    instructions = False;background = pygame.image.load(os.path.join("media","menu.png"))
                     background.convert()
                     ven.blit(background,(0,0))
         pygame.display.flip()
@@ -181,6 +182,15 @@ while menuloop:
         mouspos=pygame.mouse.get_pos()
         centrx,centry=(posx+sprtx/2), (posy+sprty/2)
         dx, dy = mouspos[0]-centrx, mouspos[1]-centry
+
+        #proyectiles!!!
+        nb=0
+        for prr in balas:
+            prr.mover()
+            if prr.comprovar() == False:
+                #ven.blit(background.subsurface((prr.posx,prr.posy,prr.prox,prr.proy)),(prr.posx,prr.posy))
+                delete=balas.pop(nb)
+            nb+=1
         #condicionales de stand y direccion
         if (der and izq and arr and aba) == False:
             standf=True
@@ -248,6 +258,35 @@ while menuloop:
                 if picnr >= 6:
                     picnr = 4
 
+            if (der and pygame.mouse.get_pressed()[0]) or (aba and pygame.mouse.get_pressed()[0]):
+                picnr = 6
+                ven.blit(background.subsurface((posx,posy,sprtx,sprty)),(posx,posy)) 
+                ven.blit(mypicture, (posx,posy))
+                #picnr = 6
+                pygame.mixer.Sound.play(paso) #reproduce el sonido de los pasos cuando caminas
+                
+            if (izq and pygame.mouse.get_pressed()[0]) or (aba and izq and pygame.mouse.get_pressed()[0]):
+                picnr = 16
+                ven.blit(background.subsurface((posx,posy,sprtx,sprty)),(posx,posy)) 
+                ven.blit(mypicture, (posx,posy))
+                #picnr = 6
+                pygame.mixer.Sound.play(paso) #reproduce el sonido de los pasos cuando caminas
+                
+            if (izq and arr and pygame.mouse.get_pressed()[0]) or (arr and pygame.mouse.get_pressed()[0]):
+                picnr = 7
+                ven.blit(background.subsurface((posx,posy,sprtx,sprty)),(posx,posy)) 
+                ven.blit(mypicture, (posx,posy))
+                #picnr = 6
+                pygame.mixer.Sound.play(paso) #reproduce el sonido de los pasos cuando caminas
+                
+            if (der and arr and pygame.mouse.get_pressed()[0]):
+                picnr = 17
+                ven.blit(background.subsurface((posx,posy,sprtx,sprty)),(posx,posy)) 
+                ven.blit(mypicture, (posx,posy))
+                #picnr = 6
+                pygame.mixer.Sound.play(paso) #reproduce el sonido de los pasos cuando caminas
+            
+
             cycletime = 0
 
         for event in pygame.event.get():
@@ -276,7 +315,8 @@ while menuloop:
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 if pygame.mouse.get_pressed()[0]==True:
                     ven.blit(warning,(random.randint(0,dimx),random.randint(0,dimy)))
-                    print 'angulo es ' , angulo(dx,dy)
+                    balas.append(proyect(ven,posx,posy,9,background,direccion(angulo((mouspos[0]-centrx),(mouspos[1]-centry)))))
+                    balas[len(balas)-1].poner()
                     pygame.mixer.Sound.play(click1)
         if der and posx<(dimx-sprtx):
             ven.blit(background.subsurface((posx,posy,sprtx,sprty)),(posx,posy))#limpia y redibuja
@@ -324,7 +364,7 @@ while menuloop:
                         # pausa=False
                     elif (540<mouspos[0]<741)and (419<mouspos[1]<448):#MainMenu
                         pygame.mixer.Sound.play(click1)
-                        background = pygame.image.load(os.path.join("media","background_resized.png"))
+                        background = pygame.image.load(os.path.join("media","menu.png"))
                         background.convert()
                         ven.blit(background,(0,0))
                         pausa=False
