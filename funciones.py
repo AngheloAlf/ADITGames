@@ -40,7 +40,7 @@ class proyect():
     def poner(self,):
         self.surf.blit(self.arr,(self.posx,self.posy))
     def comprovar(self):
-        if 0< self.posx < 1243 and 0< self.posy < 683:
+        if 0< self.posx < 1243 and 0< self.posy < 684:
             return True
         else:
             return False
@@ -119,4 +119,12 @@ def direccion(angulo):
         return 'oo'
     if 292.5<=angulo<337.5:
         return 'no'
+class foe():
+    def __init__(self,sur,px,py,arrspt):
+        self.surf=surf
+        self.posx=px
+        self.posy=py
+        self.spt=arrspt
+    def poner(self):
+        return ''
 

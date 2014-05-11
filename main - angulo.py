@@ -42,6 +42,10 @@ posx=300;posy=300 #posiciones de img
 der= False;aba=False;izq=False;arr= False # variables de movimiento en falso
 standf=True;standb=False #detenido hacia adelante o atras
 balas=[]
+# fooe = pygame.image.load(os.path.join("media","Foe.png"))
+# fooe.convert()
+# foe=[];foex=45;foey=57
+# init_sprite(foe,fooe,foex,foey)
 while menuloop:
     if cambiarmusica==True:
         pygame.mixer.Sound.stop(test)
@@ -157,8 +161,12 @@ while menuloop:
         for prr in balas:
             prr.mover()
             if prr.comprovar() == False:
-                #ven.blit(background.subsurface((prr.posx,prr.posy,prr.prox,prr.proy)),(prr.posx,prr.posy))
+                if prr.posx<0:prr.posx+=6
+                if prr.posy<0:prr.posy+=6
+                if prr.posy>684:prr.posy-=3
+                ven.blit(background.subsurface((prr.posx,prr.posy,prr.prox,prr.proy)),(prr.posx,prr.posy))
                 delete=balas.pop(nb)
+                print len(balas)
             nb+=1
         #condicionales de stand y direccion
         if (der and izq and arr and aba) == False:
