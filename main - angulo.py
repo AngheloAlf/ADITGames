@@ -164,6 +164,7 @@ while menuloop:
                 if prr.posx<0:prr.posx+=6
                 if prr.posy<0:prr.posy+=6
                 if prr.posy>684:prr.posy-=3
+                if prr.posx>1243:prr.posx-=4
                 ven.blit(background.subsurface((prr.posx,prr.posy,prr.prox,prr.proy)),(prr.posx,prr.posy))
                 delete=balas.pop(nb)
                 print len(balas)
