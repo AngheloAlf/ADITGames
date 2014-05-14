@@ -8,7 +8,7 @@ warning=pygame.image.load(os.path.join("media","warn.png"))
 ven=pygame.display.set_mode((dimx,dimy),pygame.FULLSCREEN)
 warning.convert()
 pygame.display.set_caption("Nombre del juego") #Inicia el nombre de juego
-background = pygame.image.load(os.path.join("media","background_resized.png"))
+background = pygame.image.load(os.path.join("media","background_test.png"))
 backgroundrect = background.get_rect()
 background = background.convert()  
 ven.blit(background,(0,0))
@@ -95,7 +95,7 @@ while menuloop:
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
                     cambiarmusica=True
-                    creditos = False;background = pygame.image.load(os.path.join("media","background_resized.png"))
+                    background = pygame.image.load(os.path.join("media","background_test.png"))
                     charselect = False
                     ven.blit(background,(0,0))
             if event.type == pygame.MOUSEBUTTONDOWN:
@@ -107,7 +107,7 @@ while menuloop:
                         init_sprite(arq,spritesheet,sprtx,sprty)
                         posx=300;posy=300
                         pygame.mixer.Sound.play(click1)
-                        juego=True;background.fill((255,255,255))
+                        juego=True;background =pygame.image.load(os.path.join("media","background_test.png"))
                         background = background.convert()
                         ven.blit(background,(0,0))
                         charselect = False
@@ -129,7 +129,7 @@ while menuloop:
         for event in pygame.event.get():
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
-                    creditos = False;background = pygame.image.load(os.path.join("media","background_resized.png"))
+                    creditos = False;background = pygame.image.load(os.path.join("media","background_test.png"))
                     ven.blit(background,(0,0))
         pygame.display.flip()
 
@@ -138,7 +138,7 @@ while menuloop:
         for event in pygame.event.get():
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
-                    instructions = False;background = pygame.image.load(os.path.join("media","background_resized.png"))
+                    instructions = False;background = pygame.image.load(os.path.join("media","background_test.png"))
                     ven.blit(background,(0,0))
         pygame.display.flip()
     
@@ -206,7 +206,7 @@ while menuloop:
                 juego = False # X de la ventana
             elif event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE: 
-                    juego = False;background = pygame.image.load(os.path.join("media","background_resized.png"))
+                    juego = False;background = pygame.image.load(os.path.join("media","background_test.png"))
                     ven.blit(background,(0,0))
                     cambiarmusica=True
                 #if presionar tecla
