@@ -128,4 +128,8 @@ class foe():
         self.spt=arrspt
     def poner(self):
         return ''
-
+#class prota():
+    #def __init__(self,sur,px,py,arrspt):
+        #definicion de variable
+    #def mover(self,dir):
+        #codigo de movimiento

@@ -8,7 +8,7 @@ warning=pygame.image.load(os.path.join("media","warn.png"))
 ven=pygame.display.set_mode((dimx,dimy),pygame.FULLSCREEN)
 warning.convert()
 pygame.display.set_caption("Nombre del juego") #Inicia el nombre de juego
-background = pygame.image.load(os.path.join("media","background_test.png"))
+background = pygame.image.load(os.path.join("media","menu.png"))
 backgroundrect = background.get_rect()
 background = background.convert()  
 ven.blit(background,(0,0))
@@ -58,7 +58,7 @@ while menuloop:
             
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 if pygame.mouse.get_pressed()[0]==True: #Ejecuta el juego
-                    if (505<mouspos[0]<788)and (284<mouspos[1]<320):
+                    if (500<mouspos[0]<750 )and (300<mouspos[1]<340): #Start Game
                         cambiarmusica = True
                         pygame.mixer.Sound.play(click1)
                         #juego=True;background.fill((255,255,255)) #comentado por q pasa a charselect
@@ -66,23 +66,23 @@ while menuloop:
                         background = pygame.image.load(os.path.join("media","Characters_Selector.png"))
                         background = background.convert()
                         ven.blit(background,(0,0))
-                    if (556<mouspos[0]<742)and (356<mouspos[1]<388): #creditos
+                    if (530<mouspos[0]<710)and (350<mouspos[1]<390): #opciones (sonido de error)
+                        pygame.mixer.Sound.play(error)
+                    if (530<mouspos[0]<710)and (400<mouspos[1]<440): #creditos
                         pygame.mixer.Sound.play(click1)
                         background = pygame.image.load(os.path.join("media","creditos.png"))
                         background = background.convert()
                         ven.blit(background,(0,0))
                         creditos = True
-                    if (503<mouspos[0]<825)and (392<mouspos[1]<433): #instrucciones
+                    if (480<mouspos[0]<780)and (450<mouspos[1]<490): #instrucciones
                         pygame.mixer.Sound.play(click1)
                         background = pygame.image.load(os.path.join("media","instructions.png"))
                         background = background.convert()
                         ven.blit(background,(0,0))
                         instructions = True
-                    if (546<mouspos[0]<774)and (305<mouspos[1]<350):#opciones (sonido de error)
-                        pygame.mixer.Sound.play(error)
-                    if (588<mouspos[0]<724)and (436<mouspos[1]<470):
+                    if (560<mouspos[0]<680)and (500<mouspos[1]<540): # exit del "menu"
                         pygame.mixer.Sound.play(click1)
-                        juego = False; sys.exit() # exit del "menu"
+                        sys.exit() 
 
     while charselect:
         #cambiar_musica(cambiarmusica,charselect,menu,test)
@@ -95,7 +95,7 @@ while menuloop:
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
                     cambiarmusica=True
-                    background = pygame.image.load(os.path.join("media","background_test.png"))
+                    background = pygame.image.load(os.path.join("media","menu.png"))
                     charselect = False
                     ven.blit(background,(0,0))
             if event.type == pygame.MOUSEBUTTONDOWN:
@@ -107,7 +107,7 @@ while menuloop:
                         init_sprite(arq,spritesheet,sprtx,sprty)
                         posx=300;posy=300
                         pygame.mixer.Sound.play(click1)
-                        juego=True;background =pygame.image.load(os.path.join("media","background_test.png"))
+                        juego=True;background = pygame.image.load(os.path.join("media","fase_01.png"))
                         background = background.convert()
                         ven.blit(background,(0,0))
                         charselect = False
@@ -118,7 +118,7 @@ while menuloop:
                         init_sprite(arq,spritesheet,sprtx,sprty)
                         posx=300;posy=300
                         pygame.mixer.Sound.play(click1)
-                        juego=True;background.fill((255,255,255))
+                        juego=True;background = pygame.image.load(os.path.join("media","fase_01.png"))
                         background = background.convert()
                         ven.blit(background,(0,0))
                         charselect = False
@@ -129,7 +129,7 @@ while menuloop:
         for event in pygame.event.get():
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
-                    creditos = False;background = pygame.image.load(os.path.join("media","background_test.png"))
+                    creditos = False;background = pygame.image.load(os.path.join("media","menu.png"))
                     ven.blit(background,(0,0))
         pygame.display.flip()
 
@@ -138,7 +138,7 @@ while menuloop:
         for event in pygame.event.get():
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
-                    instructions = False;background = pygame.image.load(os.path.join("media","background_test.png"))
+                    instructions = False;background = pygame.image.load(os.path.join("media","menu.png"))
                     ven.blit(background,(0,0))
         pygame.display.flip()
     
@@ -206,7 +206,7 @@ while menuloop:
                 juego = False # X de la ventana
             elif event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE: 
-                    juego = False;background = pygame.image.load(os.path.join("media","background_test.png"))
+                    juego = False;background = pygame.image.load(os.path.join("media","menu.png"))
                     ven.blit(background,(0,0))
                     cambiarmusica=True
                 #if presionar tecla
