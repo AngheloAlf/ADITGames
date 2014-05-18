@@ -55,7 +55,7 @@ while menuloop:
             
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 if pygame.mouse.get_pressed()[0]==True: #Ejecuta el juego
-                    if (505<mouspos[0]<788)and (284<mouspos[1]<320):
+                    if (500<mouspos[0]<750 )and (300<mouspos[1]<340): #Start Game
                         cambiarmusica = True
                         pygame.mixer.Sound.play(click1)
                         #juego=True;background.fill((255,255,255)) #comentado por q pasa a charselect
@@ -63,23 +63,23 @@ while menuloop:
                         background = pygame.image.load(os.path.join("media","Characters_Selector.png"))
                         background = background.convert()
                         ven.blit(background,(0,0))
-                    if (556<mouspos[0]<742)and (356<mouspos[1]<388): #creditos
+                    if (530<mouspos[0]<710)and (350<mouspos[1]<390): #opciones (sonido de error)
+                        pygame.mixer.Sound.play(error)
+                    if (530<mouspos[0]<710)and (400<mouspos[1]<440): #creditos
                         pygame.mixer.Sound.play(click1)
                         background = pygame.image.load(os.path.join("media","creditos.png"))
                         background = background.convert()
                         ven.blit(background,(0,0))
                         creditos = True
-                    if (503<mouspos[0]<825)and (392<mouspos[1]<433): #instrucciones
+                    if (480<mouspos[0]<780)and (450<mouspos[1]<490): #instrucciones
                         pygame.mixer.Sound.play(click1)
                         background = pygame.image.load(os.path.join("media","instructions.png"))
                         background = background.convert()
                         ven.blit(background,(0,0))
                         instructions = True
-                    if (546<mouspos[0]<774)and (305<mouspos[1]<350):#opciones (sonido de error)
-                        pygame.mixer.Sound.play(error)
-                    if (588<mouspos[0]<724)and (436<mouspos[1]<470):#exit
+                    if (560<mouspos[0]<680)and (500<mouspos[1]<540): # exit del "menu"
                         pygame.mixer.Sound.play(click1)
-                        juego = False; sys.exit() # exit del "menu"
+                        sys.exit() 
 
     while charselect:
         #cambiar_musica(cambiarmusica,charselect,menu,test)
@@ -131,7 +131,11 @@ while menuloop:
                         init_sprite(arq,spritesheet,sprtx,sprty)
                         posx=300;posy=300
                         pygame.mixer.Sound.play(click1)
+<<<<<<< HEAD
                         juego=True;background= pygame.image.load(os.path.join("media","background_resized.png"))
+=======
+                        juego=True;background= pygame.image.load(os.path.join("media","fase_01.png"))
+>>>>>>> ca02cf45f207b7d1128e1bb80dc03bf7a0e2841c
                         background = background.convert()
                         ven.blit(background,(0,0))
                         charselect = False
@@ -142,7 +146,7 @@ while menuloop:
                         init_sprite(arq,spritesheet,sprtx,sprty)
                         posx=300;posy=300
                         pygame.mixer.Sound.play(click1)
-                        juego=True;background.fill((255,255,255))
+                        juego=True;background= pygame.image.load(os.path.join("media","fase_01.png"))
                         background = background.convert()
                         ven.blit(background,(0,0))
                         charselect = False
@@ -322,8 +326,8 @@ while menuloop:
                         print 'sacar pausa'
                         #cambiarmusica = True
                         pygame.mixer.Sound.play(click1)
-                        background.fill((255,255,255))
-                        background.convert()
+                        background = pygame.image.load(os.path.join("media","fase_01.png")).convert
+                        #background.convert()
                         ven.blit(background,(0,0))
                         juego=True
                         pausa=False
