@@ -55,7 +55,6 @@ class proyect():
         return self.arr
 
     def mover(self):
-        print self.posx,self.posy
         if self.dire=="nn":
             if self.comprovar():
                 self.surf.blit(self.back.subsurface((self.posx,self.posy,self.prox,self.proy)),(self.posx,self.posy))

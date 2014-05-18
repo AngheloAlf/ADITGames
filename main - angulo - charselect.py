@@ -131,7 +131,7 @@ while menuloop:
                         init_sprite(arq,spritesheet,sprtx,sprty)
                         posx=300;posy=300
                         pygame.mixer.Sound.play(click1)
-                        juego=True;background= pygame.image.load(os.path.join("media","background_test.png"))
+                        juego=True;background= pygame.image.load(os.path.join("media","background_resized.png"))
                         background = background.convert()
                         ven.blit(background,(0,0))
                         charselect = False
