@@ -40,8 +40,9 @@ cycletime = 0
 interval = .10 # cuanto tiempo esta cada imagen app .-.
 picnr = 0
 posx=300;posy=300 #posiciones de img
-der= False;aba=False;izq=False;arr= False # variables de movimiento en falso
-standf=True;standb=False #detenido hacia adelante o atras
+arquera=prota(ven,background,posx,posy,'Arq')
+guerrero=prota(ven,background,posx,posy,'Gue')
+
 balas=[]
 while menuloop:
     if cambiarmusica==True:
@@ -89,30 +90,19 @@ while menuloop:
             cambiarmusica = False
         mouspos=pygame.mouse.get_pos()
 
-        #los personajes se mueven en el menu :P
-        posx=300;posy=300
-        spritesheet = pygame.image.load(os.path.join("media","Arq44x76.png"))
-        spritesheet.convert()
-        arq=[];sprtx=48;sprty=76
-        init_sprite(arq,spritesheet,sprtx,sprty)
-
-        spritegue = pygame.image.load(os.path.join("media","Gue45x57.png"))
-        spritegue.convert()
-        gue=[];guex=45;guey=57
-        init_sprite(gue,spritegue,guex,guey)
-
         FPS = 5
         milliseconds = clock.tick(FPS)  # milisec despues del ultimo frame
         seconds = milliseconds * 1000.0 # seconds q pasaron del utimo frame
         playtime += seconds
         cycletime += seconds
-        ven.blit(background.subsurface((posx,posy,48,76)),(73,73)) ##
-        ven.blit(arq[picnr], (73,73)) 
-        ven.blit(background.subsurface((posx,posy,45,57)),(73,196)) ##
-        ven.blit(gue[picnr], (73,196)) 
-        picnr += 1
-        if picnr > 19:
-            picnr = 0
+        #personajes se mueven
+        arquera.poner(73,73)    
+        guerrero.poner(73,196)
+        arquera.picnr += 1
+        guerrero.picnr += 1
+        if arquera.picnr > 19:
+            arquera.picnr = 0
+            guerrero.picnr = 0
         cycletime = 0
 
         for event in pygame.event.get():
@@ -131,7 +121,7 @@ while menuloop:
                         init_sprite(arq,spritesheet,sprtx,sprty)
                         posx=300;posy=300
                         pygame.mixer.Sound.play(click1)
-                        #coment head
+                        #coment head // REITERACION???
                         juego=True;background= pygame.image.load(os.path.join("media","background_resized.png"))
                         juego=True;background= pygame.image.load(os.path.join("media","fase_01.png"))
                         #>> ca02cf45f207b7d1128e1bb80dc03bf7a0e2841c SHA
