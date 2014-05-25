@@ -132,7 +132,7 @@ while menuloop:
                         posx=300;posy=300
                         pygame.mixer.Sound.play(click1)
                         #coment head
-                        juego=True;background= pygame.image.load(os.path.join("media","background_resized.png"))
+                        #juego=True;background= pygame.image.load(os.path.join("media","background_resized.png"))
                         juego=True;background= pygame.image.load(os.path.join("media","fase_01.png"))
                         #>> ca02cf45f207b7d1128e1bb80dc03bf7a0e2841c SHA
                         background = background.convert()
@@ -322,22 +322,21 @@ while menuloop:
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if pygame.mouse.get_pressed()[0]==True:
                     if (540<mouspos[0]<741)and (280<mouspos[1]<314): #Continue
-                        print 'sacar pausa'
+                        print 'Pause: Continue'
                         #cambiarmusica = True
                         pygame.mixer.Sound.play(click1)
-                        background = pygame.image.load(os.path.join("media","fase_01.png")).convert
-                        #background.convert()
+                        juego=True;background= pygame.image.load(os.path.join("media","fase_01.png"))
+                        background = background.convert()
                         ven.blit(background,(0,0))
-                        juego=True
                         pausa=False
                     elif (540<mouspos[0]<741)and (327<mouspos[1]<358): #Restart
+                        print 'Pause: Restart'
                         pygame.mixer.Sound.play(click1)
                         posx=300;posy=300
-                        background.fill((255,255,255))
-                        background.convert()
+                        juego=True;background= pygame.image.load(os.path.join("media","fase_01.png"))
+                        background = background.convert()
                         ven.blit(background,(0,0))
                         pausa=False
-                        juego=True
                     elif (540<mouspos[0]<741)and (371<mouspos[1]<403): #Help
                         pygame.mixer.Sound.play(error)
                     elif (540<mouspos[0]<741)and (419<mouspos[1]<448):#MainMenu
