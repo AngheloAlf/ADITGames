@@ -9,7 +9,7 @@ ven=pygame.display.set_mode((dimx,dimy),pygame.FULLSCREEN)
 warning.convert()
 pygame.display.set_caption("Adit Games: Game 1") #Inicia el nombre de juego
 background = pygame.image.load(os.path.join("media","menu.png"))
-backgroundrect = background.get_rect()
+#backgroundrect = background.get_rect()
 background = background.convert()  
 ven.blit(background,(0,0))
 sprtx=0;sprty=0
@@ -298,7 +298,7 @@ while menuloop:
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 if pygame.mouse.get_pressed()[0]==True:
                     ven.blit(warning,(random.randint(0,dimx),random.randint(0,dimy)))
-                    balas.append(proyect(ven,posx,posy,9,background,direccion(angulo((mouspos[0]-centrx),(mouspos[1]-centry)))))
+                    balas.append(proyect(ven,posx,posy+30,9,background,direccion(angulo((mouspos[0]-centrx),(mouspos[1]-centry)))))
                     balas[len(balas)-1].poner()
                     pygame.mixer.Sound.play(click1)
         if der and posx<(dimx-sprtx):
