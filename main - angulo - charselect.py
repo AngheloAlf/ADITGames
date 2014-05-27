@@ -137,6 +137,7 @@ while menuloop:
                         #>> ca02cf45f207b7d1128e1bb80dc03bf7a0e2841c SHA
                         background = background.convert()
                         ven.blit(background,(0,0))
+                        personaje=arq
                         charselect = False
                     elif (62<mouspos[0]<350)and (190<mouspos[1]<255):
                         spritesheet = pygame.image.load(os.path.join("media","Gue45x57.png"))
@@ -148,6 +149,7 @@ while menuloop:
                         juego=True;background= pygame.image.load(os.path.join("media","fase_01.png"))
                         background = background.convert()
                         ven.blit(background,(0,0))
+                        personaje=gue
                         charselect = False
         pygame.display.flip()
 
@@ -298,8 +300,9 @@ while menuloop:
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 if pygame.mouse.get_pressed()[0]==True:
                     ven.blit(warning,(random.randint(0,dimx),random.randint(0,dimy)))
-                    balas.append(proyect(ven,posx,posy+30,9,background,direccion(angulo((mouspos[0]-centrx),(mouspos[1]-centry)))))
-                    balas[len(balas)-1].poner()
+                    if personaje==arq:
+                        balas.append(proyect(ven,posx,posy+30,9,background,direccion(angulo((mouspos[0]-centrx),(mouspos[1]-centry)))))
+                        balas[len(balas)-1].poner()
                     pygame.mixer.Sound.play(click1)
         if der and posx<(dimx-sprtx):
             ven.blit(background.subsurface((posx,posy,sprtx,sprty)),(posx,posy))#limpia y redibuja
