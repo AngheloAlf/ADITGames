@@ -128,9 +128,9 @@ class foe():
     def poner(self):
         return ''
 class prota():
-    def __init__(self,sur,back,px,py,clase):
+    def __init__(self,sur,px,py,clase):
         self.surf=sur
-        self.back=back
+        #self.back=back
         self.posx=px
         self.posy=py
         if clase == 'Gue':
@@ -154,9 +154,71 @@ class prota():
         self.der=False;self.aba=False;self.izq=False;self.arr=False
         self.standf=True;self.standb=False
         self.pnj=self.arspt[self.picnr] #la surface del personaje segun estado
-    def poner(self,xx,yy):
-        self.surf.blit(self.back.subsurface((self.posx,self.posy,self.sprtx,self.sprty)),(xx,yy))
+    def poner(self,xx,yy,back):
+        self.surf.blit(back.subsurface((self.posx,self.posy,self.sprtx,self.sprty)),(xx,yy))
         self.surf.blit(self.pnj,(xx,yy))
         self.pnj=self.arspt[self.picnr]
-    # def mover(self,dir):
-    #     #codigo de movimiento
+    def mover(self,standf,aba,der,arr,izq,back):
+        if standf:
+            self.picnr=0
+            self.poner(self.posx,self.posy,back)     
+
+        if (der or aba)and not (arr or izq):
+            self.poner(self.posx,self.posy,back)
+            self.picnr += 1
+            if self.picnr >= 3:
+                self.picnr = 1       
+
+        if izq and not (der or aba or arr):
+            if self.picnr!=12:
+                self.picnr=11
+            self.poner(self.posx,self.posy,back)
+            self.picnr += 1
+            if self.picnr >= 13:
+                self.picnr = 11
+
+        if (aba and izq) and not (arr or der):
+            if self.picnr!=12:
+                self.picnr=11
+            self.poner(self.posx,self.posy,back)
+            self.picnr += 1
+            if self.picnr >= 13:
+                self.picnr = 11
+
+        if (aba and izq and der) and not (arr):
+            self.poner(self.posx,self.posy,back)
+            self.picnr += 1
+            if self.picnr >= 3:
+                self.picnr = 1   
+
+        if (arr and der) and not (aba and izq):
+            if self.picnr!=15:
+                self.picnr=14
+            self.poner(self.posx,self.posy,back)
+            self.picnr += 1
+            if self.picnr >= 16:
+                self.picnr = 14
+
+        if arr and not der:
+            if self.picnr!=5:
+                self.picnr=4
+            self.poner(self.posx,self.posy,back)
+            if self.picnr >= 6:
+                self.picnr = 4   
+    def desp(self,der,izq,arr,aba,dimx,dimy,back):
+        if der and self.posx<(dimx-self.sprtx):
+            self.surf.blit(back.subsurface((self.posx,self.posy,self.sprtx,self.sprty)),(self.posx,self.posy))
+            self.posx +=3
+            self.poner(self.posx,self.posy,back)
+        if izq and self.posx > 0:
+            self.surf.blit(back.subsurface((self.posx,self.posy,self.sprtx,self.sprty)),(self.posx,self.posy))
+            self.posx -=3
+            self.poner(self.posx,self.posy,back)
+        if arr and self.posy > 0:
+            self.surf.blit(back.subsurface((self.posx,self.posy,self.sprtx,self.sprty)),(self.posx,self.posy))
+            self.posy -=3
+            self.poner(self.posx,self.posy,back)
+        if aba and self.posy<(dimy-self.sprty):
+            self.surf.blit(back.subsurface((self.posx,self.posy,self.sprtx,self.sprty)),(self.posx,self.posy))
+            self.posy +=3
+            self.poner(self.posx,self.posy,back)

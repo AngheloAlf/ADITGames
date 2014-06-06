@@ -40,8 +40,10 @@ cycletime = 0
 interval = .10 # cuanto tiempo esta cada imagen app .-.
 picnr = 0
 posx=300;posy=300 #posiciones de img
-arquera=prota(ven,background,posx,posy,'Arq')
-guerrero=prota(ven,background,posx,posy,'Gue')
+der= False;aba=False;izq=False;arr= False # variables de movimiento en falso
+standf=True;standb=False #detenido hacia adelante o atras
+arquera=prota(ven,posx,posy,'Arq')
+guerrero=prota(ven,posx,posy,'Gue')
 
 balas=[]
 while menuloop:
@@ -96,8 +98,8 @@ while menuloop:
         playtime += seconds
         cycletime += seconds
         #personajes se mueven
-        arquera.poner(73,73)    
-        guerrero.poner(73,196)
+        arquera.poner(73,73,background)    
+        guerrero.poner(73,196,background)
         arquera.picnr += 1
         guerrero.picnr += 1
         if arquera.picnr > 19:
@@ -115,25 +117,14 @@ while menuloop:
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if pygame.mouse.get_pressed()[0]==True: #Ejecuta el juego
                     if (62<mouspos[0]<325)and (64<mouspos[1]<160):
-                        spritesheet = pygame.image.load(os.path.join("media","Arq44x76.png"))
-                        spritesheet.convert()
-                        arq=[];sprtx=48;sprty=76
-                        init_sprite(arq,spritesheet,sprtx,sprty)
-                        posx=300;posy=300
+                        Prota=prota(ven,posx,posy,'Arq')
                         pygame.mixer.Sound.play(click1)
-                        #coment head // REITERACION???
-                        #juego=True;background= pygame.image.load(os.path.join("media","background_resized.png"))
                         juego=True;background= pygame.image.load(os.path.join("media","fase_01.png"))
-                        #>> ca02cf45f207b7d1128e1bb80dc03bf7a0e2841c SHA
                         background = background.convert()
                         ven.blit(background,(0,0))
                         charselect = False
                     elif (62<mouspos[0]<350)and (190<mouspos[1]<255):
-                        spritesheet = pygame.image.load(os.path.join("media","Gue45x57.png"))
-                        spritesheet.convert()
-                        arq=[];sprtx=45;sprty=57
-                        init_sprite(arq,spritesheet,sprtx,sprty)
-                        posx=300;posy=300
+                        Prota=prota(ven,posx,posy,'Gue')
                         pygame.mixer.Sound.play(click1)
                         juego=True;background= pygame.image.load(os.path.join("media","fase_01.png"))
                         background = background.convert()
@@ -160,7 +151,6 @@ while menuloop:
                     background.convert()
                     ven.blit(background,(0,0))
         pygame.display.flip()
-    
     while juego:         
         if cambiarmusica == True:
             pygame.mixer.Sound.stop(menu)
@@ -171,7 +161,7 @@ while menuloop:
         seconds = milliseconds / 1000.0 # seconds q pasaron del utimo frame
         playtime += seconds
         cycletime += seconds
-        mypicture = arq[picnr]
+        
         mouspos=pygame.mouse.get_pos()
         centrx,centry=(posx+sprtx/2), (posy+sprty/2)
         dx, dy = mouspos[0]-centrx, mouspos[1]-centry
@@ -194,72 +184,7 @@ while menuloop:
         if (der or izq or arr or aba) == True:
             standf=False
         if cycletime > interval:
-            if standf:
-                picnr=0
-                ven.blit(background.subsurface((posx,posy,sprtx,sprty)),(posx,posy)) #limpia imagen anterior
-                ven.blit(mypicture, (posx,posy))     
-
-            if (der or aba)and not (arr or izq):
-                ven.blit(background.subsurface((posx,posy,sprtx,sprty)),(posx,posy)) 
-                ven.blit(mypicture, (posx,posy))
-                pygame.mixer.Sound.play(paso) #reproduce el sonido de los pasos cuando caminas
-                picnr += 1
-                if picnr >= 3:
-                    picnr = 1       
-
-            if izq and not (der or aba or arr):
-                if picnr!=12:
-                    picnr=11
-                ven.blit(background.subsurface((posx,posy,sprtx,sprty)),(posx,posy)) 
-                ven.blit(mypicture, (posx,posy))
-                pygame.mixer.Sound.play(paso) #reproduce el sonido de los pasos cuando caminas
-                picnr += 1
-                if picnr >= 13:
-                    picnr = 11
-
-            if (aba and izq) and not (arr or der):
-                if picnr!=12:
-                    picnr=11
-                ven.blit(background.subsurface((posx,posy,sprtx,sprty)),(posx,posy)) 
-                ven.blit(mypicture, (posx,posy))
-                pygame.mixer.Sound.play(paso) #reproduce el sonido de los pasos cuando caminas
-                picnr += 1
-                if picnr >= 13:
-                    picnr = 11
-
-            if (aba and izq and der) and not (arr):
-                ven.blit(background.subsurface((posx,posy,sprtx,sprty)),(posx,posy)) 
-                ven.blit(mypicture, (posx,posy))
-                pygame.mixer.Sound.play(paso) #reproduce el sonido de los pasos cuando caminas
-                picnr += 1
-                if picnr >= 3:
-                    picnr = 1   
-
-            if (arr and der) and not (aba and izq):
-                if picnr!=15:
-                    picnr=14
-                ven.blit(background.subsurface((posx,posy,sprtx,sprty)),(posx,posy)) 
-                ven.blit(mypicture, (posx,posy))
-                pygame.mixer.Sound.play(paso) #reproduce el sonido de los pasos cuando caminas
-                picnr += 1
-                if picnr >= 16:
-                    picnr = 14
-
-            if arr and not der:
-                if picnr!=5:
-                    picnr=4
-                ven.blit(background.subsurface((posx,posy,sprtx,sprty)),(posx,posy)) 
-                ven.blit(mypicture, (posx,posy))
-                picnr += 1
-                pygame.mixer.Sound.play(paso) #reproduce el sonido de los pasos cuando caminas
-                if picnr >= 6:
-                    picnr = 4
-
-            # if (der and arr and pygame.mouse.get_pressed()[0]):
-            # if (posx< mouspos[0] and posy>mouspos[0] and pygame.mouse.get_pressed()[0]):
-            #     picnr = 17
-            #     ven.blit(background.subsurface((posx,posy,sprtx,sprty)),(posx,posy)) 
-            #     ven.blit(mypicture, (posx,posy))
+            Prota.mover(standf,aba,der,arr,izq,background)
             cycletime = 0
 
         for event in pygame.event.get():
@@ -291,18 +216,7 @@ while menuloop:
                     balas.append(proyect(ven,posx,posy,9,background,direccion(angulo((mouspos[0]-centrx),(mouspos[1]-centry)))))
                     balas[len(balas)-1].poner()
                     pygame.mixer.Sound.play(click1)
-        if der and posx<(dimx-sprtx):
-            ven.blit(background.subsurface((posx,posy,sprtx,sprty)),(posx,posy))#limpia y redibuja
-            posx +=3;ven.blit(mypicture, (posx,posy))
-        if izq and posx > 0:
-            ven.blit(background.subsurface((posx,posy,sprtx,sprty)),(posx,posy))
-            posx -=3;ven.blit(mypicture, (posx,posy))
-        if arr and posy > 0:
-            ven.blit(background.subsurface((posx,posy,sprtx,sprty)),(posx,posy))
-            posy -=3;ven.blit(mypicture, (posx,posy))
-        if aba and posy<(dimy-sprty):
-            ven.blit(background.subsurface((posx,posy,sprtx,sprty)),(posx,posy))
-            posy +=3;ven.blit(mypicture, (posx,posy))
+        Prota.desp(der,izq,arr,aba,dimx,dimy,background)
 
         pygame.display.flip()
 
