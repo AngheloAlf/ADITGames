@@ -2,55 +2,55 @@ import pygame, sys, os, random, math
 from funciones import *
 from pygame.locals import *
 pygame.init() #inicia pygame
-#inicia la ventana
-dimx=1280;dimy=720 #dimensiones de la ventana
-warning=pygame.image.load(os.path.join("media","warn.png"))
-ven=pygame.display.set_mode((dimx,dimy),pygame.FULLSCREEN)
+#inicia la ventana   #dimensiones de la ventana
+dimx,dimy        = (1280,720)
+warning          = pygame.image.load(os.path.join("media","warn.png"))
+ven              = pygame.display.set_mode((dimx,dimy),pygame.FULLSCREEN)
 warning.convert()
 pygame.display.set_caption("Adit Games: Game 1") #Inicia el nombre de juego
-background = pygame.image.load(os.path.join("media","menu.png"))
+background     = pygame.image.load(os.path.join("media","menu.png"))
 backgroundrect = background.get_rect()
-background = background.convert()  
+background     = background.convert()  
 ven.blit(background,(0,0))
-sprtx=0;sprty=0
+sprtx,sprty    = (0,0)
 
 #Codigo de musica
 main_dir = os.path.split(os.path.abspath(__file__))[0]
 data_dir = os.path.join(main_dir, 'media')         ##para que la musica este en la carpeta media
 pygame.mixer.init(frequency=44100, size=-16, channels=2, buffer=4096) ##iniciador de mixer
-paso=pygame.mixer.Sound(os.path.join(data_dir, "wood1.ogg"))         ##sonido cuando caminas
-error=pygame.mixer.Sound(os.path.join(data_dir, "error.ogg"))         ##sonido de error
-menu=pygame.mixer.Sound(os.path.join(data_dir, "menu.ogg"))     ##musica del menu
+paso     = pygame.mixer.Sound(os.path.join(data_dir, "wood1.ogg"))         ##sonido cuando caminas
+error    = pygame.mixer.Sound(os.path.join(data_dir, "error.ogg"))         ##sonido de error
+menu     = pygame.mixer.Sound(os.path.join(data_dir, "menu.ogg"))     ##musica del menu
 #menu.set_volume(0.7)       ##volumen del menu
 pygame.mixer.Sound.play(menu, loops=-1) ##se reproduce la musica de fondo
-click1=pygame.mixer.Sound(os.path.join(data_dir, "hit1.ogg"))
-cambiarmusica = False
-test=pygame.mixer.Sound(os.path.join(data_dir, "test.ogg"))  ##test para cambio de musica (sera cambiada)
+click1   = pygame.mixer.Sound(os.path.join(data_dir, "hit1.ogg"))
+cambiarmusica  = False
+test     = pygame.mixer.Sound(os.path.join(data_dir, "test.ogg"))  ##test para cambio de musica (sera cambiada)
 
-clock = pygame.time.Clock()        #clock para milisec.
-juego = False
-creditos = False
-instructions = False
-menuloop=True
-charselect=False
-pausa=False
-FPS = 65                 #FPS dejemos la caga con los fps :D okno C:
-playtime = 0
-cycletime = 0
-interval = .10 # cuanto tiempo esta cada imagen app .-.
-picnr = 0
-posx=300;posy=300 #posiciones de img
-der= False;aba=False;izq=False;arr= False # variables de movimiento en falso
-standf=True;standb=False #detenido hacia adelante o atras
-arquera=prota(ven,posx,posy,'Arq')
-guerrero=prota(ven,posx,posy,'Gue')
+clock          = pygame.time.Clock()        #clock para milisec.
+juego          = False
+creditos       = False
+instructions   = False
+menuloop       = True
+charselect     = False
+pausa          = False
+FPS            = 65      #FPS dejemos la caga con los fps :D okno C:
+playtime       = 0
+cycletime      = 0
+interval       = .10 # cuanto tiempo esta cada imagen app .-.
+picnr          = 0
+posx           = 300;     posy   =300    #posiciones de img
+der            = False;  aba    =False; izq=False;  arr= False # variables de movimiento en falso
+standf         = True;    standb =False #detenido hacia adelante o atras
+arquera        = prota(ven,posx,posy,'Arq')
+guerrero       = prota(ven,posx,posy,'Gue')
 
 balas=[]
 while menuloop:
     if cambiarmusica==True:
         pygame.mixer.Sound.stop(test)
         pygame.mixer.Sound.play(menu, loops=-1)
-        cambiarmusica=False
+        cambiarmusica  = False
     mouspos=pygame.mouse.get_pos()
     for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -163,7 +163,7 @@ while menuloop:
         cycletime += seconds
         
         mouspos=pygame.mouse.get_pos()
-        centrx,centry=(posx+sprtx/2), (posy+sprty/2)
+        centrx,centry=(Prota.posx+Prota.sprtx/2), (Prota.posy+Prota.sprty/2)
         dx, dy = mouspos[0]-centrx, mouspos[1]-centry
 
         #proyectiles!!!
@@ -200,20 +200,20 @@ while menuloop:
                     #juego = False
                     #cambiarmusica=True
                 #if presionar tecla
-                if event.key == pygame.K_d: der=True
-                if event.key == pygame.K_a: izq = True
-                if event.key == pygame.K_w: arr= True
-                if event.key == pygame.K_s: aba= True
+                if event.key == pygame.K_d: der  =True
+                if event.key == pygame.K_a: izq  = True
+                if event.key == pygame.K_w: arr  = True
+                if event.key == pygame.K_s: aba  = True
             elif event.type == pygame.KEYUP:
                 #if soltar tecla
-                if event.key == pygame.K_d: der=False
-                if event.key == pygame.K_a: izq = False
-                if event.key == pygame.K_w: arr= False
-                if event.key == pygame.K_s: aba= False
+                if event.key == pygame.K_d: der  =False
+                if event.key == pygame.K_a: izq  = False
+                if event.key == pygame.K_w: arr  = False
+                if event.key == pygame.K_s: aba  = False
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 if pygame.mouse.get_pressed()[0]==True:
                     ven.blit(warning,(random.randint(0,dimx),random.randint(0,dimy)))
-                    balas.append(proyect(ven,posx,posy,9,background,direccion(angulo((mouspos[0]-centrx),(mouspos[1]-centry)))))
+                    balas.append(proyect(ven,Prota.posx,Prota.posy,9,background,direccion(angulo((mouspos[0]-centrx),(mouspos[1]-centry)))))
                     balas[len(balas)-1].poner()
                     pygame.mixer.Sound.play(click1)
         Prota.desp(der,izq,arr,aba,dimx,dimy,background)

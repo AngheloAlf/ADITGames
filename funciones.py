@@ -121,46 +121,46 @@ def direccion(angulo):
         return 'no'
 class foe():
     def __init__(self,sur,px,py,arrspt):
-        self.surf=surf
-        self.posx=px
-        self.posy=py
-        self.spt=arrspt
+        self.surf   = surf
+        self.posx   = px
+        self.posy   = py
+        self.spt    = arrspt
     def poner(self):
         return ''
 class prota():
     def __init__(self,sur,px,py,clase):
-        self.surf=sur
-        #self.back=back
-        self.posx=px
-        self.posy=py
+        self.surf     = sur
+        self.posx     = px
+        self.posy     = py
         if clase == 'Gue':
             spritegue = pygame.image.load(os.path.join("media","Gue45x57.png"))
             spritegue.convert()
-            gue=[]
-            self.sprtx=45
-            self.sprty=57
+            gue       = []
+            self.sprtx= 45
+            self.sprty= 57
             init_sprite(gue,spritegue,self.sprtx,self.sprty)
-            self.arspt=gue
+            self.arspt= gue
         elif clase == 'Arq':
             spritesheet = pygame.image.load(os.path.join("media","Arq44x76.png"))
             spritesheet.convert()
-            arq=[]
-            self.sprtx=48
-            self.sprty=76
+            arq        = []
+            self.sprtx = 48
+            self.sprty = 76
             init_sprite(arq,spritesheet,self.sprtx,self.sprty)
-            self.arspt=arq
+            self.arspt = arq
         self.picnr=0 #recorre los sprites segun peticion
         #inicio de variables de movimiento
-        self.der=False;self.aba=False;self.izq=False;self.arr=False
-        self.standf=True;self.standb=False
-        self.pnj=self.arspt[self.picnr] #la surface del personaje segun estado
+        self.der     = False; self.aba    = False
+        self.izq     = False; self.arr    = False
+        self.standf  = True;  self.standb = False
+        self.pnj     = self.arspt[self.picnr] #la surface del personaje segun estado
     def poner(self,xx,yy,back):
         self.surf.blit(back.subsurface((self.posx,self.posy,self.sprtx,self.sprty)),(xx,yy))
         self.surf.blit(self.pnj,(xx,yy))
-        self.pnj=self.arspt[self.picnr]
+        self.pnj     = self.arspt[self.picnr]
     def mover(self,standf,aba,der,arr,izq,back):
         if standf:
-            self.picnr=0
+            self.picnr = 0
             self.poner(self.posx,self.posy,back)     
 
         if (der or aba)and not (arr or izq):
