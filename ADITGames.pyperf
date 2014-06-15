@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<ProfilingTarget xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <ProjectTarget>
+    <TargetProject>a42aae39-d443-4f67-8a2c-5c74e007f2c9</TargetProject>
+    <FriendlyName>ADITGames</FriendlyName>
+  </ProjectTarget>
+</ProfilingTarget>

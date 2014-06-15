@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+        <SchemaVersion>2.0</SchemaVersion>
+        <ProjectGuid>{a42aae39-d443-4f67-8a2c-5c74e007f2c9}</ProjectGuid>
+        <ProjectHome />
+        <StartupFile>main_modular.py</StartupFile>
+        <SearchPath />
+        <WorkingDirectory>.</WorkingDirectory>
+        <OutputPath>.</OutputPath>
+        <InterpreterId>{2af0f10d-7135-4994-9156-5d01c9c11b7e}</InterpreterId>
+        <InterpreterVersion>2.7</InterpreterVersion>
+        <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+        <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Configuration)' == 'Debug'" />
+    <PropertyGroup Condition="'$(Configuration)' == 'Release'" />
+    <ItemGroup>
+        <Content Include="README.txt" />
+        <Content Include="Captura.PNG" />
+        <Compile Include="funciones.py" />
+        <Compile Include="main - angulo - charselect - tp.py" />
+        <Compile Include="main - angulo - charselect.py" />
+        <Compile Include="main - angulo.py" />
+        <Compile Include="main - background music.py" />
+        <Compile Include="main - charselect.py" />
+        <Compile Include="main - menu.py" />
+        <Compile Include="main.py" />
+        <Compile Include="main_modular.py" />
+        <Content Include="media\imagenes de fondo.txt" />
+        <Content Include="media\vz.txt" />
+        <Content Include="media\16x16.png" />
+        <Content Include="media\24x24.png" />
+        <Content Include="media\32x32.png" />
+        <Content Include="media\36x36.png" />
+        <Content Include="media\Arq44x76.png" />
+        <Content Include="media\Arrow - copia.png" />
+        <Content Include="media\Arrow.png" />
+        <Content Include="media\background2.png" />
+        <Content Include="media\background_resized.png" />
+        <Content Include="media\background_test.png" />
+        <Content Include="media\bullet.png" />
+        <Content Include="media\Characters_Selector.png" />
+        <Content Include="media\creditos.png" />
+        <Content Include="media\fase_01.png" />
+        <Content Include="media\Foe.png" />
+        <Content Include="media\Gue45x57.png" />
+        <Content Include="media\IMG.png" />
+        <Content Include="media\instructions.png" />
+        <Content Include="media\menu.png" />
+        <Content Include="media\Old Arq44x76.png" />
+        <Content Include="media\Old Gue45x57.png" />
+        <Content Include="media\pause.png" />
+        <Content Include="media\warn.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <Folder Include="media" />
+    </ItemGroup>
+    <ItemGroup>
+        <InterpreterReference Include="{2af0f10d-7135-4994-9156-5d01c9c11b7e}\2.7" />
+    </ItemGroup>
+    <Import Project="$(MSBuildToolsPath)\Microsoft.Common.targets" />
+</Project>

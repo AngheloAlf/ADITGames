@@ -82,7 +82,7 @@ while menuloop:
                         instructions = True
                     if (560<mouspos[0]<680)and (500<mouspos[1]<540): # exit del "menu"
                         pygame.mixer.Sound.play(click1)
-                        sys.exit() 
+                        menuloop=False
 
     while charselect:
         #cambiar_musica(cambiarmusica,charselect,menu,test)
@@ -254,3 +254,4 @@ while menuloop:
         pygame.display.flip()
 
     pygame.display.flip()
+pygame.quit()
