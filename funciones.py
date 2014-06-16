@@ -119,14 +119,7 @@ def direccion(angulo):
         return 'oo'
     if 292.5<=angulo<337.5:
         return 'no'
-class foe():
-    def __init__(self,sur,px,py,arrspt):
-        self.surf   = surf
-        self.posx   = px
-        self.posy   = py
-        self.spt    = arrspt
-    def poner(self):
-        return ''
+
 class prota():
     def __init__(self,sur,px,py,clase):
         self.surf     = sur
@@ -148,6 +141,14 @@ class prota():
             self.sprty = 76
             init_sprite(arq,spritesheet,self.sprtx,self.sprty)
             self.arspt = arq
+        elif clase == 'Foe':
+            self.sprtx= 45
+            self.sprty= 57
+            esprit = pygame.image.load(os.path.join("media","foe.png"))
+            esprit.convert()
+            foespt       = []
+            init_sprite(foespt,esprit,self.sprtx,self.sprty)
+            self.arspt   = foespt
         self.picnr=0 #recorre los sprites segun peticion
         #inicio de variables de movimiento
         self.der     = False; self.aba    = False
@@ -158,18 +159,18 @@ class prota():
         self.surf.blit(back.subsurface((self.posx,self.posy,self.sprtx,self.sprty)),(xx,yy))
         self.surf.blit(self.pnj,(xx,yy))
         self.pnj     = self.arspt[self.picnr]
-    def mover(self,standf,aba,der,arr,izq,back):
-        if standf:
+    def mover(self,back):
+        if self.standf:
             self.picnr = 0
             self.poner(self.posx,self.posy,back)     
 
-        if (der or aba)and not (arr or izq):
+        if (self.der or self.aba)and not (self.arr or self.izq):
             self.poner(self.posx,self.posy,back)
             self.picnr += 1
             if self.picnr >= 3:
                 self.picnr = 1       
 
-        if izq and not (der or aba or arr):
+        if self.izq and not (self.der or self.aba or self.arr):
             if self.picnr!=12:
                 self.picnr=11
             self.poner(self.posx,self.posy,back)
@@ -177,7 +178,7 @@ class prota():
             if self.picnr >= 13:
                 self.picnr = 11
 
-        if (aba and izq) and not (arr or der):
+        if (self.aba and self.izq) and not (self.arr or self.der):
             if self.picnr!=12:
                 self.picnr=11
             self.poner(self.posx,self.posy,back)
@@ -185,13 +186,13 @@ class prota():
             if self.picnr >= 13:
                 self.picnr = 11
 
-        if (aba and izq and der) and not (arr):
+        if (self.aba and self.izq and self.der) and not (self.arr):
             self.poner(self.posx,self.posy,back)
             self.picnr += 1
             if self.picnr >= 3:
                 self.picnr = 1   
 
-        if (arr and der) and not (aba and izq):
+        if (self.arr and self.der) and not (self.aba and self.izq):
             if self.picnr!=15:
                 self.picnr=14
             self.poner(self.posx,self.posy,back)
@@ -199,26 +200,48 @@ class prota():
             if self.picnr >= 16:
                 self.picnr = 14
 
-        if arr and not der:
+        if self.arr and not self.der:
             if self.picnr!=5:
                 self.picnr=4
             self.poner(self.posx,self.posy,back)
+            self.picnr += 1
             if self.picnr >= 6:
                 self.picnr = 4   
-    def desp(self,der,izq,arr,aba,dimx,dimy,back):
-        if der and self.posx<(dimx-self.sprtx):
+    def desp(self,dimx,dimy,back):
+        if self.der and self.posx<(dimx-self.sprtx):
             self.surf.blit(back.subsurface((self.posx,self.posy,self.sprtx,self.sprty)),(self.posx,self.posy))
             self.posx +=3
             self.poner(self.posx,self.posy,back)
-        if izq and self.posx > 0:
+        if self.izq and self.posx > 0:
             self.surf.blit(back.subsurface((self.posx,self.posy,self.sprtx,self.sprty)),(self.posx,self.posy))
             self.posx -=3
             self.poner(self.posx,self.posy,back)
-        if arr and self.posy > 0:
+        if self.arr and self.posy > 0:
             self.surf.blit(back.subsurface((self.posx,self.posy,self.sprtx,self.sprty)),(self.posx,self.posy))
             self.posy -=3
             self.poner(self.posx,self.posy,back)
-        if aba and self.posy<(dimy-self.sprty):
+        if self.aba and self.posy<(dimy-self.sprty):
             self.surf.blit(back.subsurface((self.posx,self.posy,self.sprtx,self.sprty)),(self.posx,self.posy))
             self.posy +=3
             self.poner(self.posx,self.posy,back)
+class foe(prota):
+    def buscar(self,objet):
+        foex   = self.posx
+        foey   = self.posy
+        objx   = objet.posx
+        objy   = objet.posy
+        if foex==objx and foey==objy:
+            self.standf=True
+        if foex<objx:
+            self.der=True
+            self.izq=False
+        if foex>objx:
+            self.der=False
+            self.izq=True
+        if foey>objy:
+            self.arr=True
+            self.aba=False
+        if foey<objy:
+            self.arr=False
+            self.aba=True
+

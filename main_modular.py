@@ -44,6 +44,8 @@ der            = False;  aba    =False; izq=False;  arr= False # variables de mo
 standf         = True;    standb =False #detenido hacia adelante o atras
 arquera        = prota(ven,posx,posy,'Arq')
 guerrero       = prota(ven,posx,posy,'Gue')
+foes           = []
+foes.append(foe(ven,random.randint(0,dimx),random.randint(0,dimy),'Foe'))
 
 balas=[]
 while menuloop:
@@ -179,12 +181,16 @@ while menuloop:
                 print len(balas) #comentario para revisar estado de balas DEBUGGER 
             nb+=1
         #condicionales de stand y direccion
-        if (der and izq and arr and aba) == False:
-            standf=True
-        if (der or izq or arr or aba) == True:
-            standf=False
+        if (Prota.der and Prota.izq and Prota.arr and Prota.aba) == False:
+            Prota.standf=True
+        if (Prota.der or Prota.izq or Prota.arr or Prota.aba) == True:
+            Prota.standf=False
         if cycletime > interval:
-            Prota.mover(standf,aba,der,arr,izq,background)
+            Prota.mover(background)
+            if cycletime > interval*1.2:
+                for f in foes:
+                    f.buscar(Prota)
+                    f.mover(background)
             cycletime = 0
 
         for event in pygame.event.get():
@@ -200,24 +206,28 @@ while menuloop:
                     #juego = False
                     #cambiarmusica=True
                 #if presionar tecla
-                if event.key == pygame.K_d: der  =True
-                if event.key == pygame.K_a: izq  = True
-                if event.key == pygame.K_w: arr  = True
-                if event.key == pygame.K_s: aba  = True
+                if event.key == pygame.K_d: Prota.der  =True
+                if event.key == pygame.K_a: Prota.izq  = True
+                if event.key == pygame.K_w: Prota.arr  = True
+                if event.key == pygame.K_s: Prota.aba  = True
             elif event.type == pygame.KEYUP:
                 #if soltar tecla
-                if event.key == pygame.K_d: der  =False
-                if event.key == pygame.K_a: izq  = False
-                if event.key == pygame.K_w: arr  = False
-                if event.key == pygame.K_s: aba  = False
+                if event.key == pygame.K_d: Prota.der  =False
+                if event.key == pygame.K_a: Prota.izq  = False
+                if event.key == pygame.K_w: Prota.arr  = False
+                if event.key == pygame.K_s: Prota.aba  = False
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 if pygame.mouse.get_pressed()[0]==True:
-                    ven.blit(warning,(random.randint(0,dimx),random.randint(0,dimy)))
+                    foes.append(foe(ven,random.randint(0,dimx),random.randint(0,dimy),'Foe'))
+
+                    #ven.blit(warning,(random.randint(0,dimx),random.randint(0,dimy)))
                     balas.append(proyect(ven,Prota.posx,Prota.posy,9,background,direccion(angulo((mouspos[0]-centrx),(mouspos[1]-centry)))))
                     balas[len(balas)-1].poner()
                     pygame.mixer.Sound.play(click1)
-        Prota.desp(der,izq,arr,aba,dimx,dimy,background)
 
+        Prota.desp(dimx,dimy,background)
+        for f in foes:
+                f.desp(dimx,dimy,background)
         pygame.display.flip()
 
     while pausa:
