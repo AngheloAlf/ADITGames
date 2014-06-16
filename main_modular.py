@@ -45,7 +45,7 @@ standf         = True;    standb =False #detenido hacia adelante o atras
 arquera        = prota(ven,posx,posy,'Arq')
 guerrero       = prota(ven,posx,posy,'Gue')
 foes           = []
-foes.append(foe(ven,random.randint(0,dimx),random.randint(0,dimy),'Foe'))
+
 
 balas=[]
 while menuloop:
@@ -187,10 +187,9 @@ while menuloop:
             Prota.standf=False
         if cycletime > interval:
             Prota.mover(background)
-            if cycletime > interval*1.2:
-                for f in foes:
-                    f.buscar(Prota)
-                    f.mover(background)
+            for f in foes:
+                f.buscar(Prota)
+                f.mover(background)
             cycletime = 0
 
         for event in pygame.event.get():
@@ -219,7 +218,7 @@ while menuloop:
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 if pygame.mouse.get_pressed()[0]==True:
                     foes.append(foe(ven,random.randint(0,dimx),random.randint(0,dimy),'Foe'))
-
+                    foes[-1].vel=1
                     #ven.blit(warning,(random.randint(0,dimx),random.randint(0,dimy)))
                     balas.append(proyect(ven,Prota.posx,Prota.posy,9,background,direccion(angulo((mouspos[0]-centrx),(mouspos[1]-centry)))))
                     balas[len(balas)-1].poner()

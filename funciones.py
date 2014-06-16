@@ -125,6 +125,7 @@ class prota():
         self.surf     = sur
         self.posx     = px
         self.posy     = py
+        self.vel      = 3
         if clase == 'Gue':
             spritegue = pygame.image.load(os.path.join("media","Gue45x57.png"))
             spritegue.convert()
@@ -210,19 +211,19 @@ class prota():
     def desp(self,dimx,dimy,back):
         if self.der and self.posx<(dimx-self.sprtx):
             self.surf.blit(back.subsurface((self.posx,self.posy,self.sprtx,self.sprty)),(self.posx,self.posy))
-            self.posx +=3
+            self.posx +=self.vel
             self.poner(self.posx,self.posy,back)
         if self.izq and self.posx > 0:
             self.surf.blit(back.subsurface((self.posx,self.posy,self.sprtx,self.sprty)),(self.posx,self.posy))
-            self.posx -=3
+            self.posx -=self.vel
             self.poner(self.posx,self.posy,back)
         if self.arr and self.posy > 0:
             self.surf.blit(back.subsurface((self.posx,self.posy,self.sprtx,self.sprty)),(self.posx,self.posy))
-            self.posy -=3
+            self.posy -=self.vel
             self.poner(self.posx,self.posy,back)
         if self.aba and self.posy<(dimy-self.sprty):
             self.surf.blit(back.subsurface((self.posx,self.posy,self.sprtx,self.sprty)),(self.posx,self.posy))
-            self.posy +=3
+            self.posy +=self.vel
             self.poner(self.posx,self.posy,back)
 class foe(prota):
     def buscar(self,objet):
