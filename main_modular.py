@@ -124,6 +124,7 @@ while menuloop:
                         juego=True;background= pygame.image.load(os.path.join("media","fase_01.png"))
                         background = background.convert()
                         ven.blit(background,(0,0))
+                        personaje='arquera'
                         charselect = False
                     elif (62<mouspos[0]<350)and (190<mouspos[1]<255):
                         Prota=prota(ven,posx,posy,'Gue')
@@ -131,6 +132,7 @@ while menuloop:
                         juego=True;background= pygame.image.load(os.path.join("media","fase_01.png"))
                         background = background.convert()
                         ven.blit(background,(0,0))
+                        personaje='guerrero'
                         charselect = False
         pygame.display.flip()
 
@@ -217,12 +219,14 @@ while menuloop:
                 if event.key == pygame.K_s: Prota.aba  = False
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 if pygame.mouse.get_pressed()[0]==True:
+                    pygame.mixer.Sound.play(click1)
                     foes.append(foe(ven,random.randint(0,dimx),random.randint(0,dimy),'Foe'))
                     foes[-1].vel=1
                     #ven.blit(warning,(random.randint(0,dimx),random.randint(0,dimy)))
-                    balas.append(proyect(ven,Prota.posx,Prota.posy,9,background,direccion(angulo((mouspos[0]-centrx),(mouspos[1]-centry)))))
-                    balas[len(balas)-1].poner()
-                    pygame.mixer.Sound.play(click1)
+                    if personaje=='arquera':
+                        balas.append(proyect(ven,Prota.posx,Prota.posy+30,9,background,direccion(angulo((mouspos[0]-centrx),(mouspos[1]-centry)))))
+                        balas[len(balas)-1].poner()
+                    
 
         Prota.desp(dimx,dimy,background)
         for f in foes:
