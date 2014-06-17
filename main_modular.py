@@ -155,7 +155,7 @@ while menuloop:
                     background.convert()
                     ven.blit(background,(0,0))
         pygame.display.flip()
-    while juego:         
+    while juego:
         if cambiarmusica == True:
             pygame.mixer.Sound.stop(menu)
             pygame.mixer.Sound.play(test, loops=-1)
