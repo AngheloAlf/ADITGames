@@ -154,7 +154,7 @@ while menuloop:
                     background.convert()
                     ven.blit(background,(0,0))
         pygame.display.flip()
-    while juego:         
+    while juego: 
         if cambiarmusica == True:
             pygame.mixer.Sound.stop(menu)
             pygame.mixer.Sound.play(test, loops=-1)
@@ -254,9 +254,12 @@ while menuloop:
                     elif (540<mouspos[0]<741)and (327<mouspos[1]<358): #Restart
                         print 'Pause: Restart'
                         pygame.mixer.Sound.play(click1)
-                        Prota=prota(ven,posx,posy,personaje)
-                        juego=True;background= pygame.image.load(os.path.join("media","fase_01.png"))
-                        background = background.convert()
+                        Prota       = prota(ven,posx,posy,personaje)
+                        juego       = True
+                        foes        = []
+                        balas       = []
+                        background  = pygame.image.load(os.path.join("media","fase_01.png"))
+                        background  = background.convert()
                         ven.blit(background,(0,0))
                         pausa=False
                     elif (540<mouspos[0]<741)and (371<mouspos[1]<403): #Help
@@ -277,6 +280,5 @@ while menuloop:
                     ven.blit(background,(0,0))
                     pausa=False
         pygame.display.flip()
-
     pygame.display.flip()
 pygame.quit()
